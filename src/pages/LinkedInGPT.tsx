@@ -55,10 +55,12 @@ export function LinkedInGPT() {
   const [showAllPrompts, setShowAllPrompts] = useState(false);
   const [showHistory, setShowHistory] = useState(false);
   const [expandedPost, setExpandedPost] = useState<number | null>(null);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const handleSend = () => {
     if (!input.trim()) return;
     
+    setIsGenerating(true);
     const newMessage = {
       id: Date.now(),
       type: "user" as const,
@@ -74,12 +76,13 @@ export function LinkedInGPT() {
       const aiResponse = {
         id: Date.now() + 1,
         type: "ai" as const,
-        content: "I'll help you create an engaging LinkedIn post about that topic. Let me craft something compelling for you...",
+        content: "🚀 The tech industry moves at lightning speed.\n\nWhat got you here won't get you there.\n\nI learned this the hard way when I realized my coding skills from 5 years ago were already becoming outdated.\n\nHere's what I've discovered about staying relevant:\n\n→ Dedicate 30 minutes daily to learning\n→ Follow industry leaders and trends\n→ Build side projects with new technologies\n→ Join tech communities and discussions\n→ Don't fear making mistakes while learning\n\nThe moment you stop learning is the moment you start falling behind.\n\nWhat's one new skill you're currently developing? 👇\n\n#TechCareers #ContinuousLearning #TechTips",
         timestamp: "Just now",
         engagement: { likes: Math.floor(Math.random() * 50) + 10, comments: Math.floor(Math.random() * 20) + 3, shares: Math.floor(Math.random() * 15) + 2 }
       };
       setMessages(prev => [...prev, aiResponse]);
-    }, 1000);
+      setIsGenerating(false);
+    }, 2000);
   };
 
   const allPrompts = promptCategories.flatMap(cat => cat.prompts);
@@ -107,63 +110,85 @@ export function LinkedInGPT() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-[#fffaf3] to-[#fef7ed] flex">
+      <div className="min-h-screen bg-[#fff8f1] flex font-['Inter',sans-serif]">
         {/* Left Sidebar */}
-        <div className="w-64 bg-white border-r border-gray-100 flex flex-col">
+        <div className="w-72 bg-white border-r border-gray-200 flex flex-col shadow-sm">
           <div className="p-6 border-b border-gray-100">
             <div className="flex items-center gap-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-                <Sparkles className="w-4 h-4 text-white" />
+              <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-amber-600 rounded-xl flex items-center justify-center shadow-md">
+                <Sparkles className="w-5 h-5 text-white" />
               </div>
-              <h1 className="text-lg font-semibold text-gray-900">LinkedIn GPT</h1>
+              <div>
+                <h1 className="text-xl font-semibold text-gray-900">LinkedIn GPT</h1>
+                <p className="text-sm text-gray-500">SocioCopilot</p>
+              </div>
             </div>
           </div>
           
           <div className="flex-1 p-4">
-            <div className="space-y-2">
+            <div className="space-y-1">
               <Button
                 variant={!showHistory ? "secondary" : "ghost"}
-                className="w-full justify-start text-sm"
+                className="w-full justify-start text-sm h-10 rounded-lg"
                 onClick={() => setShowHistory(false)}
               >
-                <Edit3 className="w-4 h-4 mr-2" />
+                <Edit3 className="w-4 h-4 mr-3" />
                 New Post
               </Button>
               <Button
                 variant={showHistory ? "secondary" : "ghost"}
-                className="w-full justify-start text-sm"
+                className="w-full justify-start text-sm h-10 rounded-lg"
                 onClick={() => setShowHistory(true)}
               >
-                <History className="w-4 h-4 mr-2" />
+                <History className="w-4 h-4 mr-3" />
                 History
               </Button>
+            </div>
+            
+            <div className="mt-6 pt-4 border-t border-gray-100">
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-xs font-medium text-gray-500 uppercase tracking-wide">Tone</span>
+                <Select value={selectedTone} onValueChange={setSelectedTone}>
+                  <SelectTrigger className="w-24 h-7 text-xs bg-amber-50 border-amber-200 rounded-full">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {toneOptions.map((tone) => (
+                      <SelectItem key={tone.value} value={tone.value} className="text-xs">
+                        {tone.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col">
-          <div className="flex-1 max-w-2xl mx-auto w-full px-8 py-12">
+        <div className="flex-1 flex flex-col bg-[#fff8f1]">
+          <div className="flex-1 max-w-2xl mx-auto w-full px-6 py-8">
             
             {/* Content Ideas Section */}
             {!showHistory && (
-              <div className="mb-12">
+              <div className="mb-8">
                 <div className="mb-6">
-                  <h2 className="text-sm font-medium text-gray-500 mb-2">Here are 3 content ideas to get started...</h2>
+                  <h2 className="text-base font-medium text-gray-600 leading-relaxed">Here are 3 content ideas to get started...</h2>
                 </div>
                 
-                <div className="space-y-3">
+                <div className="space-y-4">
                   {visiblePrompts.map((prompt, index) => (
                     <div
                       key={index}
                       onClick={() => setInput(prompt)}
-                      className="group bg-white rounded-2xl p-4 shadow-sm border border-gray-100 hover:shadow-md hover:border-amber-200 transition-all duration-200 cursor-pointer"
+                      className="group bg-white rounded-xl p-5 shadow-md border-0 hover:shadow-lg transition-all duration-300 cursor-pointer animate-fade-in"
+                      style={{ animationDelay: `${index * 150}ms` }}
                     >
-                      <div className="flex items-start gap-3">
-                        <div className="w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-amber-100 transition-colors">
-                          📝
+                      <div className="flex items-start gap-4">
+                        <div className="w-9 h-9 bg-gradient-to-r from-amber-400 to-amber-500 rounded-lg flex items-center justify-center flex-shrink-0 shadow-sm">
+                          <span className="text-lg">📝</span>
                         </div>
-                        <p className="text-gray-700 text-sm leading-relaxed flex-1">{prompt}</p>
+                        <p className="text-gray-700 text-base leading-relaxed flex-1 group-hover:text-gray-900 transition-colors">{prompt}</p>
                       </div>
                     </div>
                   ))}
@@ -173,7 +198,7 @@ export function LinkedInGPT() {
                       variant="ghost"
                       size="sm"
                       onClick={() => setShowAllPrompts(true)}
-                      className="text-amber-600 hover:text-amber-700 hover:bg-amber-50 w-full"
+                      className="text-amber-600 hover:text-amber-700 hover:bg-amber-50 w-full mt-3 rounded-lg"
                     >
                       Show more ideas
                       <ChevronDown className="w-4 h-4 ml-1" />
@@ -185,128 +210,146 @@ export function LinkedInGPT() {
 
             {/* Generated Post Display */}
             {!showHistory && (
-              <div className="mb-8">
+              <div className="mb-20">
+                {isGenerating && (
+                  <div className="bg-white rounded-xl p-6 shadow-md border-0 animate-fade-in mb-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full flex items-center justify-center">
+                        <Sparkles className="w-4 h-4 text-white animate-pulse" />
+                      </div>
+                      <span className="text-sm font-medium text-gray-600">AI Copilot is writing...</span>
+                    </div>
+                    <div className="flex gap-2">
+                      <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
+                      <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
+                      <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+                    </div>
+                  </div>
+                )}
+                
                 {messages.filter(m => m.type === 'ai').map((message) => (
-                  <Card key={message.id} className="bg-white border-gray-100 shadow-sm rounded-2xl animate-fade-in">
-                    <CardHeader className="pb-4">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 bg-gradient-to-r from-amber-100 to-amber-200 rounded-full flex items-center justify-center">
-                            <Sparkles className="w-4 h-4 text-amber-600" />
-                          </div>
-                          <div>
-                            <span className="text-sm font-medium text-gray-900">AI Copilot</span>
-                            <div className="flex items-center gap-2 mt-1">
-                              <Select value={selectedTone} onValueChange={setSelectedTone}>
-                                <SelectTrigger className="w-28 h-6 text-xs bg-gray-50 border-0">
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  {toneOptions.map((tone) => (
-                                    <SelectItem key={tone.value} value={tone.value} className="text-xs">
-                                      {tone.label}
-                                    </SelectItem>
-                                  ))}
-                                </SelectContent>
-                              </Select>
-                            </div>
-                          </div>
+                  <div key={message.id} className="bg-white rounded-xl p-6 shadow-md border-0 animate-fade-in mb-6">
+                    {/* Header */}
+                    <div className="flex items-center justify-between mb-6">
+                      <div className="flex items-center gap-3">
+                        <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full flex items-center justify-center">
+                          <Sparkles className="w-4 h-4 text-white" />
                         </div>
-                        <div className="flex gap-1">
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600">
-                                <Copy className="w-4 h-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>Copy to clipboard</TooltipContent>
-                          </Tooltip>
-                          <Tooltip>
-                            <TooltipTrigger asChild>
-                              <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-gray-600">
-                                <RotateCcw className="w-4 h-4" />
-                              </Button>
-                            </TooltipTrigger>
-                            <TooltipContent>Regenerate</TooltipContent>
-                          </Tooltip>
+                        <div>
+                          <span className="text-sm font-medium text-gray-900">AI Copilot</span>
+                          <div className="flex items-center gap-2 mt-1">
+                            <span className="text-xs bg-amber-50 text-amber-700 px-2 py-1 rounded-full border border-amber-200">
+                              {selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1)} ▼
+                            </span>
+                          </div>
                         </div>
                       </div>
-                    </CardHeader>
+                      <div className="flex gap-2">
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg">
+                              <Copy className="w-4 h-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>Copy to clipboard</TooltipContent>
+                        </Tooltip>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button size="sm" variant="ghost" className="h-8 w-8 p-0 text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg">
+                              <RotateCcw className="w-4 h-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>Regenerate</TooltipContent>
+                        </Tooltip>
+                      </div>
+                    </div>
                     
-                    <CardContent className="pt-0">
-                      <div className="prose prose-sm max-w-none">
-                        {/* Post Title/Hook */}
-                        <div className="mb-4">
-                          <h3 className="text-xl font-bold text-gray-900 leading-relaxed">
-                            {message.content.split('\n')[0]}
-                          </h3>
-                        </div>
-                        
-                        {/* Post Body */}
-                        <div className="text-base leading-relaxed text-gray-700 space-y-3">
-                          {message.content.split('\n').slice(1).map((line, index) => {
-                            if (line.trim() === '') return null;
-                            if (line.startsWith('→')) {
-                              return (
-                                <div key={index} className="flex items-start gap-2">
-                                  <span className="text-amber-500 mt-1">•</span>
-                                  <span>{line.substring(2)}</span>
-                                </div>
-                              );
-                            }
-                            if (line.includes('#')) {
-                              return (
-                                <p key={index} className="text-sm">
-                                  {line.split(' ').map((word, wordIndex) => 
-                                    word.startsWith('#') ? (
-                                      <span key={wordIndex} className="text-amber-600 font-medium">
-                                        {word}{' '}
-                                      </span>
-                                    ) : (
-                                      <span key={wordIndex}>{word}{' '}</span>
-                                    )
-                                  )}
-                                </p>
-                              );
-                            }
-                            return <p key={index}>{line}</p>;
-                          })}
+                    {/* Post Content */}
+                    <div className="space-y-4">
+                      {/* Title/Hook */}
+                      <h3 className="text-2xl font-bold text-gray-900 leading-tight">
+                        {message.content.split('\n')[0]}
+                      </h3>
+                      
+                      {/* Body Content */}
+                      <div className="text-base leading-relaxed text-gray-700 space-y-4">
+                        {message.content.split('\n').slice(1).map((line, index) => {
+                          if (line.trim() === '') return null;
+                          if (line.startsWith('→')) {
+                            return (
+                              <div key={index} className="flex items-start gap-3 ml-4">
+                                <span className="text-amber-500 mt-1.5 text-sm">•</span>
+                                <span className="flex-1">{line.substring(2)}</span>
+                              </div>
+                            );
+                          }
+                          if (line.includes('#')) {
+                            return (
+                              <p key={index} className="text-sm font-medium">
+                                {line.split(' ').map((word, wordIndex) => 
+                                  word.startsWith('#') ? (
+                                    <span key={wordIndex} className="text-amber-600 bg-amber-50 px-1 py-0.5 rounded mr-2">
+                                      {word}
+                                    </span>
+                                  ) : (
+                                    <span key={wordIndex} className="mr-1">{word}</span>
+                                  )
+                                )}
+                              </p>
+                            );
+                          }
+                          return <p key={index} className="leading-relaxed">{line}</p>;
+                        })}
+                      </div>
+                    </div>
+                    
+                    {/* Footer with Engagement */}
+                    {message.engagement && (
+                      <div className="mt-8 pt-4 border-t border-gray-100">
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <span className="text-xs text-gray-500 font-medium">Predicted engagement:</span>
+                            <div className="flex gap-2">
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="text-xs bg-green-50 text-green-700 px-3 py-1.5 rounded-full font-medium cursor-help">
+                                    👍 {message.engagement.likes}
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>Expected likes</TooltipContent>
+                              </Tooltip>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full font-medium cursor-help">
+                                    💬 {message.engagement.comments}
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>Expected comments</TooltipContent>
+                              </Tooltip>
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <span className="text-xs bg-purple-50 text-purple-700 px-3 py-1.5 rounded-full font-medium cursor-help">
+                                    🔁 {message.engagement.shares}
+                                  </span>
+                                </TooltipTrigger>
+                                <TooltipContent>Expected shares</TooltipContent>
+                              </Tooltip>
+                            </div>
+                          </div>
+                          <span className="text-xs text-gray-400">{message.timestamp}</span>
                         </div>
                       </div>
-                      
-                      {/* Footer with engagement */}
-                      {message.engagement && (
-                        <div className="mt-6 pt-4 border-t border-gray-100">
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-2">
-                              <span className="text-xs text-gray-500">Predicted:</span>
-                              <div className="flex gap-1">
-                                <span className="text-xs bg-green-50 text-green-700 px-2 py-1 rounded-full">
-                                  👍 {message.engagement.likes}
-                                </span>
-                                <span className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
-                                  💬 {message.engagement.comments}
-                                </span>
-                                <span className="text-xs bg-purple-50 text-purple-700 px-2 py-1 rounded-full">
-                                  🔁 {message.engagement.shares}
-                                </span>
-                              </div>
-                            </div>
-                            <span className="text-xs text-gray-400">{message.timestamp}</span>
-                          </div>
-                        </div>
-                      )}
-                    </CardContent>
-                  </Card>
+                    )}
+                  </div>
                 ))}
                 
-                {messages.filter(m => m.type === 'ai').length === 0 && (
-                  <div className="text-center py-16">
-                    <div className="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Edit3 className="w-8 h-8 text-amber-500" />
+                {!isGenerating && messages.filter(m => m.type === 'ai').length === 0 && (
+                  <div className="text-center py-20">
+                    <div className="w-20 h-20 bg-gradient-to-r from-amber-100 to-amber-200 rounded-full flex items-center justify-center mx-auto mb-6">
+                      <Edit3 className="w-10 h-10 text-amber-600" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mb-2">Ready to create amazing content</h3>
-                    <p className="text-gray-600">Choose an idea above or describe your own below</p>
+                    <h3 className="text-xl font-semibold text-gray-900 mb-3">Ready to create amazing content</h3>
+                    <p className="text-gray-600 text-base leading-relaxed">Choose an idea above or describe your own below</p>
                   </div>
                 )}
               </div>
@@ -314,62 +357,75 @@ export function LinkedInGPT() {
 
             {/* History View */}
             {showHistory && (
-              <div className="space-y-4">
-                <h2 className="text-lg font-semibold text-gray-900 mb-6">Your Post History</h2>
+              <div className="space-y-6 mb-20">
+                <h2 className="text-xl font-semibold text-gray-900 mb-8">Your Post History</h2>
                 {savedPosts.map((post) => (
-                  <Card key={post.id} className="bg-white border-gray-100 hover:shadow-md transition-shadow rounded-2xl">
-                    <CardContent className="p-6">
-                      <div className="flex items-start justify-between">
-                        <div className="flex-1">
-                          <p className="text-gray-700 leading-relaxed line-clamp-3">{post.preview}</p>
-                          <div className="flex items-center gap-3 mt-4">
-                            <span className="text-sm text-gray-500">{post.timestamp}</span>
-                            <div className="flex gap-1">
-                              <span className="text-xs bg-green-50 text-green-700 px-2 py-1 rounded-full">
-                                👍 {post.engagement.likes}
-                              </span>
-                              <span className="text-xs bg-blue-50 text-blue-700 px-2 py-1 rounded-full">
-                                💬 {post.engagement.comments}
-                              </span>
-                            </div>
+                  <div key={post.id} className="bg-white rounded-xl p-6 shadow-md border-0 hover:shadow-lg transition-all duration-300">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <p className="text-gray-700 leading-relaxed text-base mb-4">{post.preview}</p>
+                        <div className="flex items-center gap-4">
+                          <span className="text-sm text-gray-500">{post.timestamp}</span>
+                          <div className="flex gap-2">
+                            <span className="text-xs bg-green-50 text-green-700 px-3 py-1.5 rounded-full font-medium">
+                              👍 {post.engagement.likes}
+                            </span>
+                            <span className="text-xs bg-blue-50 text-blue-700 px-3 py-1.5 rounded-full font-medium">
+                              💬 {post.engagement.comments}
+                            </span>
                           </div>
                         </div>
-                        <Button size="sm" variant="ghost" className="text-gray-400 hover:text-gray-600">
-                          <Copy className="w-4 h-4" />
-                        </Button>
                       </div>
-                    </CardContent>
-                  </Card>
+                      <Tooltip>
+                        <TooltipTrigger asChild>
+                          <Button size="sm" variant="ghost" className="text-gray-400 hover:text-amber-600 hover:bg-amber-50 rounded-lg h-8 w-8 p-0">
+                            <Copy className="w-4 h-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>Copy post</TooltipContent>
+                      </Tooltip>
+                    </div>
+                  </div>
                 ))}
               </div>
             )}
           </div>
 
           {/* Fixed Chat-Style Input */}
-          <div className="border-t border-gray-100 bg-white p-6">
+          <div className="fixed bottom-0 left-72 right-0 bg-white border-t border-gray-200 p-6 backdrop-blur-sm bg-white/95">
             <div className="max-w-2xl mx-auto">
-              <div className="flex gap-3 items-end">
+              <div className="flex gap-4 items-end">
                 <div className="flex-1">
                   <Input
                     placeholder="What would you like to post about today?"
                     value={input}
                     onChange={(e) => setInput(e.target.value)}
-                    className="border-gray-200 focus:border-amber-300 focus:ring-amber-200 rounded-xl text-base"
+                    className="h-12 border-gray-300 focus:border-amber-400 focus:ring-amber-300 rounded-xl text-base px-4 shadow-sm"
                     onKeyDown={(e) => {
                       if (e.key === "Enter") {
                         e.preventDefault();
                         handleSend();
                       }
                     }}
+                    disabled={isGenerating}
                   />
                 </div>
                 <Button 
                   onClick={handleSend}
-                  disabled={!input.trim()}
-                  className="bg-amber-500 hover:bg-amber-600 text-white rounded-xl px-6 py-2 flex items-center gap-2"
+                  disabled={!input.trim() || isGenerating}
+                  className="h-12 bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white rounded-xl px-8 py-3 flex items-center gap-2 shadow-md hover:shadow-lg transition-all duration-200 font-medium"
                 >
-                  Generate
-                  <Send className="w-4 h-4" />
+                  {isGenerating ? (
+                    <>
+                      <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Generating...
+                    </>
+                  ) : (
+                    <>
+                      Generate
+                      <Send className="w-4 h-4" />
+                    </>
+                  )}
                 </Button>
               </div>
             </div>
