@@ -104,105 +104,114 @@ export function ViralContent() {
   });
 
   return (
-    <div className="p-6 bg-gradient-to-br from-gray-50 to-white min-h-screen">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent mb-2">
-          Viral Content
-        </h1>
-        <p className="text-gray-600">Discover trending posts to inspire your content strategy</p>
-      </div>
-
-      {/* Search and Filters */}
-      <div className="mb-8 space-y-4">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <Input
-            placeholder="Search viral content..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10 bg-white shadow-sm border-gray-200 focus:border-purple-300 focus:ring-purple-200"
-          />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-purple-50/30 to-blue-50/30">
+      <div className="p-8">
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-600 via-blue-600 to-indigo-600 bg-clip-text text-transparent mb-3">
+            Viral Content
+          </h1>
+          <p className="text-gray-600 text-lg">Discover trending posts to inspire your content strategy</p>
         </div>
 
-        <div className="flex flex-wrap gap-4">
-          {Object.entries(filters).map(([key, options]) => (
-            <div key={key} className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-700 capitalize">{key}:</span>
-              <select 
-                className="px-3 py-2 border border-gray-200 rounded-lg text-sm bg-white shadow-sm focus:border-purple-300 focus:ring-1 focus:ring-purple-200 transition-colors"
-                value={selectedFilters[key as keyof typeof selectedFilters]}
-                onChange={(e) => setSelectedFilters(prev => ({ ...prev, [key]: e.target.value }))}
-              >
-                <option value="">All</option>
-                {options.map(option => (
-                  <option key={option} value={option}>{option}</option>
-                ))}
-              </select>
+        {/* Search and Filters */}
+        <div className="mb-10 space-y-6">
+          <div className="relative max-w-2xl">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              placeholder="Search viral content..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-12 h-12 bg-white/80 backdrop-blur-sm shadow-lg border-0 focus:ring-2 focus:ring-purple-300 focus:shadow-xl transition-all duration-300 text-base"
+            />
+          </div>
+
+          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
+            <div className="flex flex-wrap gap-4">
+              {Object.entries(filters).map(([key, options]) => (
+                <div key={key} className="flex items-center gap-3">
+                  <span className="text-sm font-semibold text-gray-700 capitalize min-w-16">{key}:</span>
+                  <select 
+                    className="px-4 py-2.5 border-0 rounded-xl text-sm bg-white/80 shadow-md focus:shadow-lg focus:ring-2 focus:ring-purple-300 transition-all duration-200 min-w-24"
+                    value={selectedFilters[key as keyof typeof selectedFilters]}
+                    onChange={(e) => setSelectedFilters(prev => ({ ...prev, [key]: e.target.value }))}
+                  >
+                    <option value="">All</option>
+                    {options.map(option => (
+                      <option key={option} value={option}>{option}</option>
+                    ))}
+                  </select>
+                </div>
+              ))}
             </div>
+          </div>
+        </div>
+
+        {/* Posts Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {mockPosts.map((post) => (
+            <Card key={post.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden hover:bg-white/95">
+              <CardContent className="p-0">
+                {/* Gradient Header */}
+                <div className="h-2 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500"></div>
+                
+                <div className="p-6">
+                  {/* Author Header */}
+                  <div className="flex items-center gap-4 mb-5">
+                    <Avatar className="w-12 h-12 border-3 border-white shadow-lg ring-2 ring-purple-100">
+                      <AvatarImage src={post.avatar} alt={post.author} className="object-cover" />
+                      <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold text-sm">
+                        {post.author.split(' ').map(n => n[0]).join('')}
+                      </AvatarFallback>
+                    </Avatar>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-bold text-gray-900 truncate text-base">{post.author}</p>
+                      <p className="text-sm text-gray-600 truncate font-medium">{post.title}</p>
+                    </div>
+                    <div className="flex items-center gap-1">
+                      <Button variant="ghost" size="sm" className="h-9 w-9 p-0 hover:bg-purple-50 rounded-full group/btn">
+                        <Bookmark className="w-4 h-4 text-gray-400 group-hover/btn:text-purple-600 transition-colors" />
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Content */}
+                  <div className="mb-6">
+                    <p className="text-gray-800 line-clamp-3 leading-relaxed text-base">{post.content}</p>
+                  </div>
+
+                  {/* Engagement Stats */}
+                  <div className="flex items-center gap-6 mb-5 text-sm">
+                    <div className="flex items-center gap-2 hover:text-red-500 transition-colors cursor-pointer group/stat">
+                      <Heart className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <span className="font-semibold">{post.likes.toLocaleString()}</span>
+                    </div>
+                    <div className="flex items-center gap-2 hover:text-blue-500 transition-colors cursor-pointer group/stat">
+                      <MessageCircle className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <span className="font-semibold">{post.comments}</span>
+                    </div>
+                    <div className="flex items-center gap-2 hover:text-green-500 transition-colors cursor-pointer group/stat">
+                      <Share2 className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <span className="font-semibold">{post.shares}</span>
+                    </div>
+                  </div>
+
+                  {/* Tags and Time */}
+                  <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+                    <div className="flex flex-wrap gap-2">
+                      <Badge variant="secondary" className="text-xs bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-0 font-medium px-3 py-1">
+                        {post.tone}
+                      </Badge>
+                      <Badge variant="outline" className="text-xs border-gray-200 bg-gray-50 font-medium px-3 py-1">
+                        {post.length}
+                      </Badge>
+                    </div>
+                    <span className="text-xs text-gray-500 font-semibold">{post.time}</span>
+                  </div>
+                </div>
+            </CardContent>
+            </Card>
           ))}
         </div>
-      </div>
-
-      {/* Posts Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {mockPosts.map((post) => (
-          <Card key={post.id} className="group hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border-0 shadow-md bg-white/80 backdrop-blur-sm">
-            <CardContent className="p-6">
-              {/* Author Header */}
-              <div className="flex items-center gap-3 mb-4">
-                <Avatar className="w-10 h-10 border-2 border-white shadow-md">
-                  <AvatarImage src={post.avatar} alt={post.author} />
-                  <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-semibold">
-                    {post.author.split(' ').map(n => n[0]).join('')}
-                  </AvatarFallback>
-                </Avatar>
-                <div className="flex-1 min-w-0">
-                  <p className="font-semibold text-gray-900 truncate">{post.author}</p>
-                  <p className="text-sm text-gray-500 truncate">{post.title}</p>
-                </div>
-                <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="sm" className="h-8 w-8 p-0 hover:bg-purple-50">
-                    <Bookmark className="w-4 h-4 text-gray-400 group-hover:text-purple-500 transition-colors" />
-                  </Button>
-                </div>
-              </div>
-
-              {/* Content */}
-              <div className="mb-4">
-                <p className="text-gray-800 line-clamp-3 leading-relaxed">{post.content}</p>
-              </div>
-
-              {/* Engagement Stats */}
-              <div className="flex items-center gap-6 mb-4 text-sm text-gray-600">
-                <div className="flex items-center gap-1.5 hover:text-red-500 transition-colors cursor-pointer">
-                  <Heart className="w-4 h-4" />
-                  <span className="font-medium">{post.likes.toLocaleString()}</span>
-                </div>
-                <div className="flex items-center gap-1.5 hover:text-blue-500 transition-colors cursor-pointer">
-                  <MessageCircle className="w-4 h-4" />
-                  <span className="font-medium">{post.comments}</span>
-                </div>
-                <div className="flex items-center gap-1.5 hover:text-green-500 transition-colors cursor-pointer">
-                  <Share2 className="w-4 h-4" />
-                  <span className="font-medium">{post.shares}</span>
-                </div>
-              </div>
-
-              {/* Tags and Time */}
-              <div className="flex items-center justify-between">
-                <div className="flex flex-wrap gap-2">
-                  <Badge variant="secondary" className="text-xs bg-purple-100 text-purple-700 border-purple-200">
-                    {post.tone}
-                  </Badge>
-                  <Badge variant="outline" className="text-xs border-gray-300">
-                    {post.length}
-                  </Badge>
-                </div>
-                <span className="text-xs text-gray-500 font-medium">{post.time}</span>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
       </div>
     </div>
   );

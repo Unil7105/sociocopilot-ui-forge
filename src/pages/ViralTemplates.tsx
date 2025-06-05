@@ -82,91 +82,106 @@ export function ViralTemplates() {
   });
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-gray-900 mb-2">Viral Templates</h1>
-        <p className="text-gray-600">Ready-to-use templates for creating engaging content</p>
-      </div>
-
-      {/* Search */}
-      <div className="mb-6">
-        <div className="relative">
-          <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-          <Input
-            placeholder="Search templates..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="pl-10"
-          />
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30">
+      <div className="p-8">
+        <div className="mb-10">
+          <h1 className="text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
+            Viral Templates
+          </h1>
+          <p className="text-gray-600 text-lg">Ready-to-use templates for creating engaging content</p>
         </div>
-      </div>
 
-      {/* Categories */}
-      <div className="mb-6">
-        <div className="flex flex-wrap gap-2">
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={selectedCategory === category ? "default" : "outline"}
-              size="sm"
-              onClick={() => setSelectedCategory(category)}
-              className={selectedCategory === category ? "bg-purple-600 hover:bg-purple-700" : ""}
-            >
-              {category}
-            </Button>
+        {/* Search */}
+        <div className="mb-8">
+          <div className="relative max-w-2xl">
+            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+            <Input
+              placeholder="Search templates..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="pl-12 h-12 bg-white/80 backdrop-blur-sm shadow-lg border-0 focus:ring-2 focus:ring-purple-300 focus:shadow-xl transition-all duration-300 text-base"
+            />
+          </div>
+        </div>
+
+        {/* Categories */}
+        <div className="mb-10">
+          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
+            <div className="flex flex-wrap gap-3">
+              {categories.map((category) => (
+                <Button
+                  key={category}
+                  variant={selectedCategory === category ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setSelectedCategory(category)}
+                  className={`px-4 py-2 font-medium transition-all duration-200 rounded-xl ${
+                    selectedCategory === category 
+                      ? "bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg" 
+                      : "bg-white/80 hover:bg-white border-gray-200 hover:shadow-md"
+                  }`}
+                >
+                  {category}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Templates Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
+          {filteredTemplates.map((template) => (
+            <Card key={template.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden hover:bg-white/95">
+              {/* Gradient Header */}
+              <div className="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
+              
+              <CardHeader className="pb-4">
+                <div className="flex items-start justify-between">
+                  <div className="flex-1">
+                    <CardTitle className="text-xl mb-2 font-bold text-gray-900 group-hover:text-purple-700 transition-colors">
+                      {template.title}
+                    </CardTitle>
+                    <p className="text-sm text-gray-600 leading-relaxed">{template.description}</p>
+                  </div>
+                  <Badge variant="secondary" className="text-xs bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700 border-0 font-semibold px-3 py-1 ml-3">
+                    {template.category}
+                  </Badge>
+                </div>
+              </CardHeader>
+              
+              <CardContent className="space-y-6">
+                {/* Template Preview */}
+                <div className="bg-gradient-to-r from-gray-50 to-blue-50/50 p-4 rounded-xl border border-gray-100">
+                  <p className="text-sm text-gray-700 italic leading-relaxed font-medium">{template.preview}</p>
+                </div>
+
+                {/* Stats */}
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center gap-6">
+                    <div className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors group/stat">
+                      <Eye className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <span className="font-semibold">{template.uses.toLocaleString()} uses</span>
+                    </div>
+                    <div className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors group/stat">
+                      <Heart className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <span className="font-semibold">{template.saves} saves</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Actions */}
+                <div className="flex gap-3 pt-2 border-t border-gray-100">
+                  <Button size="sm" className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-md hover:shadow-lg transition-all duration-200 font-medium">
+                    <Copy className="w-4 h-4 mr-2" />
+                    Use Template
+                  </Button>
+                  <Button size="sm" variant="outline" className="bg-white/80 hover:bg-white border-gray-200 hover:shadow-md transition-all duration-200">
+                    <Heart className="w-4 h-4" />
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
           ))}
         </div>
-      </div>
-
-      {/* Templates Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {filteredTemplates.map((template) => (
-          <Card key={template.id} className="hover:shadow-lg transition-shadow">
-            <CardHeader className="pb-3">
-              <div className="flex items-start justify-between">
-                <div>
-                  <CardTitle className="text-lg mb-1">{template.title}</CardTitle>
-                  <p className="text-sm text-gray-600">{template.description}</p>
-                </div>
-                <Badge variant="secondary" className="text-xs">
-                  {template.category}
-                </Badge>
-              </div>
-            </CardHeader>
-            
-            <CardContent className="space-y-4">
-              {/* Template Preview */}
-              <div className="bg-gray-50 p-3 rounded-lg">
-                <p className="text-sm text-gray-700 italic">{template.preview}</p>
-              </div>
-
-              {/* Stats */}
-              <div className="flex items-center justify-between text-sm text-gray-600">
-                <div className="flex items-center gap-4">
-                  <div className="flex items-center gap-1">
-                    <Eye className="w-4 h-4" />
-                    <span>{template.uses.toLocaleString()} uses</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Heart className="w-4 h-4" />
-                    <span>{template.saves} saves</span>
-                  </div>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex gap-2">
-                <Button size="sm" className="flex-1 bg-purple-600 hover:bg-purple-700">
-                  <Copy className="w-4 h-4 mr-2" />
-                  Use Template
-                </Button>
-                <Button size="sm" variant="outline">
-                  <Heart className="w-4 h-4" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
       </div>
     </div>
   );
