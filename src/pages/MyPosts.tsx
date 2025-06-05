@@ -71,7 +71,7 @@ export function MyPosts() {
                 variant={selectedView === "week" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setSelectedView("week")}
-                className={`h-7 px-3 text-xs font-medium ${selectedView === "week" ? "bg-white shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+                className={`h-7 px-3 text-xs font-semibold ${selectedView === "week" ? "bg-white shadow-sm text-gray-900" : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"}`}
               >
                 Week
               </Button>
@@ -79,7 +79,7 @@ export function MyPosts() {
                 variant={selectedView === "month" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setSelectedView("month")}
-                className={`h-7 px-3 text-xs font-medium ${selectedView === "month" ? "bg-white shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+                className={`h-7 px-3 text-xs font-semibold ${selectedView === "month" ? "bg-white shadow-sm text-gray-900" : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"}`}
               >
                 Month
               </Button>
