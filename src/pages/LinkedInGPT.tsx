@@ -147,75 +147,97 @@ export function LinkedInGPT() {
 
         {/* Generated Posts */}
         {messages.filter(m => m.type === 'ai').map(message => (
-          <div key={message.id} className="mb-16">
-            {/* Header */}
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <div className="w-6 h-6 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full flex items-center justify-center">
-                  <Sparkles className="w-3 h-3 text-white" />
+          <div key={message.id} className="mt-6 mb-4 pl-6 animate-fade-in">
+            {/* AI Response Container */}
+            <div className="bg-[#fff4e8]/30 rounded-md p-6 max-w-[640px]">
+              {/* AI Identity Header */}
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <span>🟠</span>
+                  <span>AI Copilot</span>
+                  <span className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded-full">
+                    {selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1)} ▼
+                  </span>
                 </div>
-                <span className="text-sm text-gray-600">AI Copilot</span>
-                <span className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded-full">
-                  {selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1)} ▼
-                </span>
+                <TooltipProvider>
+                  <div className="flex gap-2">
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button className="p-1 text-gray-400 hover:text-amber-600 opacity-60 hover:opacity-100 hover:scale-105 transition-all">
+                          <Copy className="w-4 h-4" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Copy</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button className="p-1 text-gray-400 hover:text-amber-600 opacity-60 hover:opacity-100 hover:scale-105 transition-all">
+                          <RotateCcw className="w-4 h-4" />
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Try Again</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  </div>
+                </TooltipProvider>
               </div>
-              <div className="flex gap-2">
-                <button className="p-1 text-gray-400 hover:text-amber-600 transition-colors">
-                  <Copy className="w-4 h-4" />
-                </button>
-                <button className="p-1 text-gray-400 hover:text-amber-600 transition-colors">
-                  <RotateCcw className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-            
-            {/* Post Content */}
-            <div className="space-y-6">
-              {/* Title */}
-              <h2 className="text-lg font-semibold text-gray-900 leading-tight">
-                {message.content.split('\n')[0]}
-              </h2>
               
-              {/* Body */}
-              <div className="text-gray-700 leading-relaxed space-y-4">
-                {message.content.split('\n').slice(1).map((line, index) => {
-                  if (line.trim() === '') return null;
-                  if (line.startsWith('→')) {
-                    return (
-                      <div key={index} className="flex items-start gap-3 ml-4">
-                        <span className="text-amber-500 mt-1 text-sm">•</span>
-                        <span>{line.substring(2)}</span>
-                      </div>
-                    );
-                  }
-                  if (line.includes('#')) {
-                    return (
-                      <p key={index} className="text-sm">
-                        {line.split(' ').map((word, wordIndex) => 
-                          word.startsWith('#') ? (
-                            <span key={wordIndex} className="text-amber-600 mr-1">
-                              {word}
-                            </span>
-                          ) : (
-                            <span key={wordIndex} className="mr-1">{word}</span>
-                          )
-                        )}
-                      </p>
-                    );
-                  }
-                  return <p key={index}>{line}</p>;
-                })}
+              {/* Post Content */}
+              <div className="space-y-4">
+                {/* Title */}
+                <h2 className="font-semibold text-lg text-gray-800 leading-tight">
+                  {message.content.split('\n')[0]}
+                </h2>
+                
+                {/* Body */}
+                <div className="text-gray-600 text-base leading-relaxed space-y-4">
+                  {message.content.split('\n').slice(1).map((line, index) => {
+                    if (line.trim() === '') return null;
+                    if (line.startsWith('→')) {
+                      return (
+                        <div key={index} className="flex items-start gap-3 ml-4">
+                          <span className="text-amber-500 mt-1 text-sm">•</span>
+                          <span>{line.substring(2)}</span>
+                        </div>
+                      );
+                    }
+                    if (line.includes('#')) {
+                      return (
+                        <p key={index} className="text-sm">
+                          {line.split(' ').map((word, wordIndex) => 
+                            word.startsWith('#') ? (
+                              <span key={wordIndex} className="text-amber-600 mr-1">
+                                {word}
+                              </span>
+                            ) : (
+                              <span key={wordIndex} className="mr-1">{word}</span>
+                            )
+                          )}
+                        </p>
+                      );
+                    }
+                    return <p key={index}>{line}</p>;
+                  })}
+                </div>
               </div>
+              
+              {/* Timestamp */}
+              <div className="mt-4 text-xs text-neutral-400">
+                just now
+              </div>
+              
+              {/* Engagement Footer */}
+              {message.engagement && (
+                <div className="mt-4 pt-4 border-t border-gray-100">
+                  <p className="text-xs text-gray-500">
+                    Predicted engagement: {message.engagement.likes} likes • {message.engagement.comments} comments • {message.engagement.shares} shares
+                  </p>
+                </div>
+              )}
             </div>
-            
-            {/* Engagement Footer */}
-            {message.engagement && (
-              <div className="mt-8 pt-4">
-                <p className="text-xs text-gray-500">
-                  Predicted engagement: {message.engagement.likes} likes • {message.engagement.comments} comments • {message.engagement.shares} shares
-                </p>
-              </div>
-            )}
           </div>
         ))}
 
