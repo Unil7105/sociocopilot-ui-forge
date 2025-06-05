@@ -115,7 +115,7 @@ export function ViralTemplates() {
         <div className="bg-white text-black pt-16 pb-20 px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-8">
-              <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
+              <h1 className="text-5xl font-bold mb-4 tracking-tight text-indigo-600">
                 Viral Templates
               </h1>
               <p className="text-xl text-purple-100 max-w-2xl mx-auto leading-relaxed">
