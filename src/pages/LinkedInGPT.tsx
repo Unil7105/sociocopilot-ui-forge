@@ -277,7 +277,7 @@ export function LinkedInGPT() {
       </div>
 
       {/* Chat Input */}
-      <div className="absolute bottom-0 left-0 right-0 bg-[#fffaf2]/95 backdrop-blur-sm border-t border-amber-200/30 z-40">
+      <div className="fixed bottom-0 left-0 right-0 bg-[#fffaf2]/95 backdrop-blur-sm border-t border-amber-200/30 z-40">
         <div className="max-w-4xl mx-auto p-4">
           {/* Quick Suggestions */}
           {messages.length === 0 && (
