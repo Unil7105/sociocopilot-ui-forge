@@ -132,10 +132,13 @@ export function ViralTemplates() {
             </div>
 
             {/* Pill-Style Category Filters */}
-            <div className="flex flex-wrap justify-center gap-3">
-              {categories.map(category => <Button key={category.name} variant="ghost" size="sm" onClick={() => setSelectedCategory(category.name)} className={`px-6 py-3 font-semibold transition-all duration-300 rounded-full text-sm hover:scale-105 ${selectedCategory === category.name ? "bg-white text-purple-600 shadow-xl scale-105 hover:shadow-2xl" : "bg-white/20 text-foreground hover:bg-white/30 backdrop-blur-sm border border-white/30"}`}>
-                  <span className="mr-2 text-base">{category.icon}</span>
-                  {category.name}
+            <div className="flex flex-wrap justify-center gap-4">
+              {categories.map(category => <Button key={category.name} variant="ghost" size="sm" onClick={() => setSelectedCategory(category.name)} className={`relative px-8 py-4 font-bold transition-all duration-300 rounded-full text-sm hover:scale-110 hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-purple-200/50 ${selectedCategory === category.name ? "bg-gradient-to-r from-purple-600 to-indigo-600 text-white shadow-2xl shadow-purple-500/30 scale-105 hover:shadow-purple-500/50" : "bg-white/80 text-gray-700 hover:bg-white hover:text-purple-700 backdrop-blur-sm border border-gray-200/50 shadow-lg hover:shadow-xl hover:border-purple-300/50"}`}>
+                  <span className="mr-3 text-lg filter drop-shadow-sm">{category.icon}</span>
+                  <span className="relative z-10">{category.name}</span>
+                  {selectedCategory === category.name && (
+                    <div className="absolute inset-0 bg-gradient-to-r from-purple-400/20 to-indigo-400/20 rounded-full animate-pulse"></div>
+                  )}
                 </Button>)}
             </div>
           </div>
