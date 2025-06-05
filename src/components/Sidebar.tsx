@@ -22,7 +22,7 @@ import {
 } from "@/components/ui/sidebar";
 
 const navigationItems = [
-  { title: "LinkedIn GPT", url: "/linkedin-gpt", icon: Bot },
+  { title: "Writer Copilot", url: "/linkedin-gpt", icon: Bot },
   { title: "Viral Content", url: "/viral-content", icon: Zap },
   { title: "Viral Templates", url: "/viral-templates", icon: FileText },
   { title: "My Posts", url: "/my-posts", icon: Calendar },
