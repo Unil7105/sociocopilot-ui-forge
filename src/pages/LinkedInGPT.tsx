@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { Send, User, Sparkles, Copy, ThumbsUp, ThumbsDown, Edit3, Megaphone, PenTool, Rocket, TrendingUp, BarChart3, Clock, Save, RotateCcw, Info, Plus, History } from "lucide-react";
+import { Send, User, Sparkles, Copy, ThumbsUp, ThumbsDown, Edit3, Megaphone, PenTool, Rocket, TrendingUp, BarChart3, Clock, Save, RotateCcw, Info, Plus, History, Hash, MessageCircle, Share } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -79,7 +80,7 @@ export function LinkedInGPT() {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-amber-50 to-orange-50">
+      <div className="min-h-screen bg-gradient-to-br from-[#fff7ec] to-[#fef3c7]">
         <div className="p-6 max-w-5xl mx-auto">
           {/* Header */}
           <div className="pt-10 mb-8">
@@ -153,12 +154,13 @@ export function LinkedInGPT() {
 
           {/* Content Area with Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
-            <TabsList className="grid w-full grid-cols-2 bg-amber-100 border border-amber-200">
-              <TabsTrigger value="current" className="data-[state=active]:bg-white data-[state=active]:text-amber-700">
+            <TabsList className="grid w-full grid-cols-2 bg-gradient-to-r from-amber-100 to-orange-100 border border-amber-200 rounded-full p-1">
+              <TabsTrigger value="current" className="rounded-full data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-md transition-all duration-200">
+                <Edit3 className="w-4 h-4 mr-2" />
                 Current Post
               </TabsTrigger>
-              <TabsTrigger value="history" className="data-[state=active]:bg-white data-[state=active]:text-amber-700">
-                <History className="w-4 h-4 mr-1" />
+              <TabsTrigger value="history" className="rounded-full data-[state=active]:bg-white data-[state=active]:text-amber-700 data-[state=active]:shadow-md transition-all duration-200">
+                <History className="w-4 h-4 mr-2" />
                 History
               </TabsTrigger>
             </TabsList>
@@ -202,22 +204,51 @@ export function LinkedInGPT() {
                             </div>
                           </CardHeader>
                         )}
-                        <CardContent className={message.type === "ai" ? "pt-0" : "p-4"}>
-                          <p className={`text-sm whitespace-pre-line ${message.type === "ai" ? "font-mono" : ""}`}>
-                            {message.content}
-                          </p>
+                        <CardContent className={message.type === "ai" ? "pt-0 p-6" : "p-4"}>
+                          {message.type === "ai" ? (
+                            <div className="text-sm leading-relaxed whitespace-pre-line">
+                              {message.content.split('\n').map((line, index) => {
+                                if (line.includes('#')) {
+                                  return (
+                                    <p key={index} className="mb-2">
+                                      {line.split(' ').map((word, wordIndex) => 
+                                        word.startsWith('#') ? (
+                                          <span key={wordIndex} className="text-amber-700 font-medium">
+                                            {word}{' '}
+                                          </span>
+                                        ) : (
+                                          <span key={wordIndex}>{word}{' '}</span>
+                                        )
+                                      )}
+                                    </p>
+                                  );
+                                }
+                                return <p key={index} className="mb-2">{line}</p>;
+                              })}
+                            </div>
+                          ) : (
+                            <p className="text-sm whitespace-pre-line">
+                              {message.content}
+                            </p>
+                          )}
                           
                           {message.type === "ai" && message.engagement && (
-                            <div className="mt-4 pt-4 border-t border-amber-100">
+                            <div className="mt-6 pt-4 border-t border-amber-100">
                               <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-4 text-xs text-neutral-600">
-                                  <span className="font-medium">Predicted engagement:</span>
-                                  <div className="flex items-center gap-1 text-green-600">
-                                    <ThumbsUp className="w-3 h-3" />
-                                    <span>{message.engagement.likes}</span>
-                                  </div>
-                                  <span>{message.engagement.comments} comments</span>
-                                  <span>{message.engagement.shares} shares</span>
+                                <div className="flex items-center gap-3">
+                                  <span className="text-xs font-medium text-neutral-600">Predicted engagement:</span>
+                                  <Badge variant="secondary" className="bg-green-100 text-green-700 border-green-200">
+                                    <ThumbsUp className="w-3 h-3 mr-1" />
+                                    {message.engagement.likes}
+                                  </Badge>
+                                  <Badge variant="secondary" className="bg-blue-100 text-blue-700 border-blue-200">
+                                    <MessageCircle className="w-3 h-3 mr-1" />
+                                    {message.engagement.comments}
+                                  </Badge>
+                                  <Badge variant="secondary" className="bg-purple-100 text-purple-700 border-purple-200">
+                                    <Share className="w-3 h-3 mr-1" />
+                                    {message.engagement.shares}
+                                  </Badge>
                                 </div>
                                 <div className="flex items-center text-xs text-neutral-500">
                                   <Clock className="w-3 h-3 mr-1" />
@@ -256,14 +287,17 @@ export function LinkedInGPT() {
                     <CardContent className="p-4">
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
-                          <p className="text-sm text-gray-700 line-clamp-2 font-mono">{post.preview}</p>
-                          <div className="flex items-center gap-4 mt-2 text-xs text-neutral-600">
-                            <span>{post.timestamp}</span>
-                            <div className="flex items-center gap-1 text-green-600">
-                              <ThumbsUp className="w-3 h-3" />
-                              <span>{post.engagement.likes}</span>
-                            </div>
-                            <span>{post.engagement.comments} comments</span>
+                          <p className="text-sm text-gray-700 line-clamp-2 leading-relaxed">{post.preview}</p>
+                          <div className="flex items-center gap-3 mt-3">
+                            <span className="text-xs text-neutral-500">{post.timestamp}</span>
+                            <Badge variant="secondary" className="bg-green-100 text-green-700 border-green-200 text-xs">
+                              <ThumbsUp className="w-3 h-3 mr-1" />
+                              {post.engagement.likes}
+                            </Badge>
+                            <Badge variant="secondary" className="bg-blue-100 text-blue-700 border-blue-200 text-xs">
+                              <MessageCircle className="w-3 h-3 mr-1" />
+                              {post.engagement.comments}
+                            </Badge>
                           </div>
                         </div>
                         <Button size="sm" variant="ghost" className="text-amber-600 hover:bg-amber-50">
@@ -278,33 +312,51 @@ export function LinkedInGPT() {
           </Tabs>
 
           {/* Input */}
-          <Card className="border-amber-200 bg-white/80 backdrop-blur-sm shadow-lg">
+          <Card className="border-amber-200 bg-white/90 backdrop-blur-sm shadow-xl rounded-xl">
             <CardContent className="p-6">
-              <div className="flex gap-3">
-                <Input
-                  placeholder="Describe the LinkedIn post you want to create..."
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyPress={(e) => e.key === "Enter" && handleSend()}
-                  className="flex-1 border-amber-200 focus:border-amber-400 focus:ring-amber-200"
-                />
+              <div className="flex gap-4 items-start">
+                <div className="flex-1 relative">
+                  <div className="absolute left-3 top-3 text-amber-600">
+                    <Edit3 className="w-4 h-4" />
+                  </div>
+                  <Textarea
+                    placeholder="✍️ Describe the LinkedIn post you want to create..."
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    className="min-h-[80px] pl-10 border-amber-200 focus:border-amber-400 focus:ring-amber-200 resize-none rounded-lg"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        handleSend();
+                      }
+                    }}
+                  />
+                </div>
                 <Button 
                   onClick={handleSend} 
-                  className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all duration-200"
+                  size="lg"
+                  className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 rounded-lg"
                 >
-                  <Send className="w-4 h-4" />
+                  <Send className="w-5 h-5" />
                 </Button>
               </div>
             </CardContent>
           </Card>
 
           {/* Floating CTA */}
-          <Button
-            className="fixed bottom-6 right-6 w-14 h-14 rounded-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-xl hover:shadow-2xl transition-all duration-200 hover:scale-110"
-            onClick={() => setInput("")}
-          >
-            <Plus className="w-6 h-6" />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button
+                className="fixed bottom-6 right-6 w-16 h-16 rounded-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-110 animate-bounce hover:animate-none"
+                onClick={() => setInput("")}
+              >
+                <Plus className="w-7 h-7" />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent side="left">
+              <p>Create new post</p>
+            </TooltipContent>
+          </Tooltip>
         </div>
       </div>
     </TooltipProvider>
