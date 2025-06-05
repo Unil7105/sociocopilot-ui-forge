@@ -153,25 +153,25 @@ export function ViralContent() {
         {/* Posts Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {mockPosts.map((post) => (
-            <Card key={post.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden hover:bg-white/95">
-              <CardContent className="p-0">
+            <Card key={post.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden hover:bg-white/95 h-full">
+              <CardContent className="p-0 h-full flex flex-col">
                 {/* Gradient Header */}
-                <div className="h-2 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500"></div>
+                <div className="h-2 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500 flex-shrink-0"></div>
                 
-                <div className="p-6">
+                <div className="p-6 flex-1 flex flex-col">
                   {/* Author Header */}
                   <div className="flex items-center gap-4 mb-5">
-                    <Avatar className="w-12 h-12 border-3 border-white shadow-lg ring-2 ring-purple-100">
+                    <Avatar className="w-12 h-12 border-2 border-white shadow-lg ring-2 ring-purple-100 flex-shrink-0">
                       <AvatarImage src={post.avatar} alt={post.author} className="object-cover" />
                       <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold text-sm">
                         {post.author.split(' ').map(n => n[0]).join('')}
                       </AvatarFallback>
                     </Avatar>
                     <div className="flex-1 min-w-0">
-                      <p className="font-bold text-gray-900 truncate text-base">{post.author}</p>
-                      <p className="text-sm text-gray-600 truncate font-medium">{post.title}</p>
+                      <p className="font-bold text-gray-900 truncate text-base leading-tight">{post.author}</p>
+                      <p className="text-sm text-gray-600 truncate font-medium leading-tight">{post.title}</p>
                     </div>
-                    <div className="flex items-center gap-1">
+                    <div className="flex-shrink-0">
                       <Button variant="ghost" size="sm" className="h-9 w-9 p-0 hover:bg-purple-50 rounded-full group/btn">
                         <Bookmark className="w-4 h-4 text-gray-400 group-hover/btn:text-purple-600 transition-colors" />
                       </Button>
@@ -179,40 +179,40 @@ export function ViralContent() {
                   </div>
 
                   {/* Content */}
-                  <div className="mb-6">
+                  <div className="mb-6 flex-1">
                     <p className="text-gray-800 line-clamp-3 leading-relaxed text-base">{post.content}</p>
                   </div>
 
                   {/* Engagement Stats */}
                   <div className="flex items-center gap-6 mb-5 text-sm">
                     <div className="flex items-center gap-2 hover:text-red-500 transition-colors cursor-pointer group/stat">
-                      <Heart className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <Heart className="w-4 h-4 group-hover/stat:scale-110 transition-transform flex-shrink-0" />
                       <span className="font-semibold">{post.likes.toLocaleString()}</span>
                     </div>
                     <div className="flex items-center gap-2 hover:text-blue-500 transition-colors cursor-pointer group/stat">
-                      <MessageCircle className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <MessageCircle className="w-4 h-4 group-hover/stat:scale-110 transition-transform flex-shrink-0" />
                       <span className="font-semibold">{post.comments}</span>
                     </div>
                     <div className="flex items-center gap-2 hover:text-green-500 transition-colors cursor-pointer group/stat">
-                      <Share2 className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <Share2 className="w-4 h-4 group-hover/stat:scale-110 transition-transform flex-shrink-0" />
                       <span className="font-semibold">{post.shares}</span>
                     </div>
                   </div>
 
                   {/* Tags and Time */}
-                  <div className="flex items-center justify-between border-t border-gray-100 pt-4">
+                  <div className="flex items-center justify-between border-t border-gray-100 pt-4 mt-auto">
                     <div className="flex flex-wrap gap-2">
-                      <Badge variant="secondary" className="text-xs bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-0 font-medium px-3 py-1">
+                      <Badge variant="secondary" className="text-xs bg-gradient-to-r from-purple-100 to-blue-100 text-purple-700 border-0 font-medium px-3 py-1 flex-shrink-0">
                         {post.tone}
                       </Badge>
-                      <Badge variant="outline" className="text-xs border-gray-200 bg-gray-50 font-medium px-3 py-1">
+                      <Badge variant="outline" className="text-xs border-gray-200 bg-gray-50 font-medium px-3 py-1 flex-shrink-0">
                         {post.length}
                       </Badge>
                     </div>
-                    <span className="text-xs text-gray-500 font-semibold">{post.time}</span>
+                    <span className="text-xs text-gray-500 font-semibold flex-shrink-0">{post.time}</span>
                   </div>
                 </div>
-            </CardContent>
+              </CardContent>
             </Card>
           ))}
         </div>
