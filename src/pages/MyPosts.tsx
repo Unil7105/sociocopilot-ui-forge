@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Plus, Calendar, Clock, Edit, Trash2, MoreHorizontal } from "lucide-react";
+import { Plus, Calendar, Clock, Edit, MoreHorizontal, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -38,95 +38,138 @@ export function MyPosts() {
   };
 
   return (
-    <div className="p-6">
-      <div className="mb-6">
-        <div className="flex items-center justify-between mb-2">
-          <h1 className="text-2xl font-bold text-gray-900">My Posts</h1>
-          <Button className="bg-purple-600 hover:bg-purple-700">
-            <Plus className="w-4 h-4 mr-2" />
-            Create Post
-          </Button>
-        </div>
-        <p className="text-gray-600">Schedule and manage your social media content</p>
-      </div>
-
-      {/* View Toggle */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2">
-          <Button
-            variant={selectedView === "week" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setSelectedView("week")}
-            className={selectedView === "week" ? "bg-purple-600 hover:bg-purple-700" : ""}
-          >
-            <Calendar className="w-4 h-4 mr-2" />
-            Week View
-          </Button>
-          <Button
-            variant={selectedView === "month" ? "default" : "outline"}
-            size="sm"
-            onClick={() => setSelectedView("month")}
-            className={selectedView === "month" ? "bg-purple-600 hover:bg-purple-700" : ""}
-          >
-            Month View
-          </Button>
-        </div>
-      </div>
-
-      {/* Calendar Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-7 gap-4">
-        {weekDays.map((dayData, index) => (
-          <div key={index} className="min-h-[300px]">
-            {/* Day Header */}
-            <div className="text-center mb-4 p-3 bg-white rounded-lg border border-gray-200">
-              <div className="font-semibold text-gray-900">{dayData.day}</div>
-              <div className="text-sm text-gray-600">{dayData.date}</div>
-            </div>
-
-            {/* Posts for the day */}
-            <div className="space-y-3">
-              {dayData.posts.map((post) => (
-                <Card key={post.id} className="p-3 hover:shadow-md transition-shadow cursor-pointer">
-                  <CardContent className="p-0">
-                    <div className="flex items-start justify-between mb-2">
-                      <div className="flex items-center gap-2">
-                        <Clock className="w-3 h-3 text-gray-400" />
-                        <span className="text-xs text-gray-600">{post.time}</span>
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                          <Edit className="w-3 h-3" />
-                        </Button>
-                        <Button variant="ghost" size="sm" className="h-6 w-6 p-0">
-                          <MoreHorizontal className="w-3 h-3" />
-                        </Button>
-                      </div>
-                    </div>
-                    
-                    <p className="text-sm text-gray-900 mb-2 line-clamp-2">
-                      {post.content}
-                    </p>
-                    
-                    <Badge 
-                      variant="secondary" 
-                      className={`text-xs ${getStatusColor(post.status)}`}
-                    >
-                      {post.status}
-                    </Badge>
-                  </CardContent>
-                </Card>
-              ))}
-
-              {/* Add Post Button */}
-              <Card className="border-2 border-dashed border-gray-300 hover:border-purple-400 transition-colors cursor-pointer">
-                <CardContent className="p-6 text-center">
-                  <Plus className="w-6 h-6 text-gray-400 mx-auto mb-2" />
-                  <p className="text-sm text-gray-600">Add Post</p>
-                </CardContent>
-              </Card>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b border-gray-200 px-8 py-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-6">
+            <h1 className="text-2xl font-semibold text-gray-900">My Posts</h1>
+            <div className="flex items-center gap-2">
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 px-3 text-gray-600 hover:text-gray-900"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </Button>
+              <span className="text-sm font-medium text-gray-900 min-w-[120px] text-center">
+                June 5-11, 2024
+              </span>
+              <Button
+                variant="ghost"
+                size="sm"
+                className="h-8 px-3 text-gray-600 hover:text-gray-900"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </Button>
             </div>
           </div>
-        ))}
+          
+          <div className="flex items-center gap-3">
+            <div className="flex items-center bg-gray-100 rounded-lg p-1">
+              <Button
+                variant={selectedView === "week" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setSelectedView("week")}
+                className={`h-7 px-3 text-xs font-medium ${selectedView === "week" ? "bg-white shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+              >
+                Week
+              </Button>
+              <Button
+                variant={selectedView === "month" ? "default" : "ghost"}
+                size="sm"
+                onClick={() => setSelectedView("month")}
+                className={`h-7 px-3 text-xs font-medium ${selectedView === "month" ? "bg-white shadow-sm" : "text-gray-600 hover:text-gray-900"}`}
+              >
+                Month
+              </Button>
+            </div>
+            <Button className="h-9 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium">
+              <Plus className="w-4 h-4 mr-2" />
+              New Post
+            </Button>
+          </div>
+        </div>
+      </div>
+
+      {/* Calendar Container */}
+      <div className="p-8">
+        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+          {/* Calendar Header */}
+          <div className="grid grid-cols-7 border-b border-gray-200">
+            {weekDays.map((dayData, index) => (
+              <div key={index} className="p-4 text-center border-r border-gray-200 last:border-r-0">
+                <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
+                  {dayData.day}
+                </div>
+                <div className="text-sm font-semibold text-gray-900">{dayData.date}</div>
+              </div>
+            ))}
+          </div>
+
+          {/* Calendar Body */}
+          <div className="grid grid-cols-7 min-h-[600px]">
+            {weekDays.map((dayData, index) => (
+              <div 
+                key={index} 
+                className="border-r border-gray-200 last:border-r-0 p-3 bg-white hover:bg-gray-50/50 transition-colors"
+              >
+                <div className="space-y-2 h-full">
+                  {dayData.posts.map((post) => (
+                    <div
+                      key={post.id}
+                      className="group bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md transition-all duration-200 cursor-pointer hover:border-blue-200"
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <div className="flex items-center gap-2">
+                          <div className={`w-2 h-2 rounded-full ${
+                            post.status === 'scheduled' ? 'bg-green-500' : 
+                            post.status === 'draft' ? 'bg-yellow-500' : 'bg-blue-500'
+                          }`}></div>
+                          <span className="text-xs font-medium text-gray-500">{post.time}</span>
+                        </div>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="h-6 w-6 p-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                        >
+                          <MoreHorizontal className="w-3 h-3 text-gray-400" />
+                        </Button>
+                      </div>
+                      
+                      <p className="text-sm text-gray-900 leading-relaxed line-clamp-3 mb-2">
+                        {post.content}
+                      </p>
+                      
+                      <div className="flex items-center justify-between">
+                        <Badge 
+                          variant="secondary" 
+                          className={`text-xs font-medium border-0 ${
+                            post.status === 'scheduled' ? 'bg-green-50 text-green-700' :
+                            post.status === 'draft' ? 'bg-yellow-50 text-yellow-700' :
+                            'bg-blue-50 text-blue-700'
+                          }`}
+                        >
+                          {post.status}
+                        </Badge>
+                      </div>
+                    </div>
+                  ))}
+
+                  {/* Add Post Area */}
+                  <div className="flex-1 flex items-end">
+                    <button className="w-full p-3 border-2 border-dashed border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50/30 transition-all duration-200 group">
+                      <div className="flex flex-col items-center gap-2">
+                        <Plus className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
+                        <span className="text-xs text-gray-500 group-hover:text-blue-600 font-medium">Add post</span>
+                      </div>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
