@@ -274,7 +274,7 @@ export function ViralContent() {
             {posts.slice(0, visiblePosts).map((post) => (
               <Card 
                 key={post.id} 
-                className="group hover:shadow-2xl hover:scale-105 transition-all duration-500 border-0 shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl overflow-hidden hover:bg-white/95 dark:hover:bg-gray-800/95 relative"
+                className="group hover:shadow-2xl hover:scale-[1.02] transition-all duration-300 ease-out border-0 shadow-lg bg-white/90 dark:bg-gray-800/90 backdrop-blur-md rounded-2xl overflow-hidden hover:bg-white/95 dark:hover:bg-gray-800/95 relative will-change-transform"
               >
                 {/* Trending Badge */}
                 {post.trending && (
