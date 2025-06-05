@@ -108,46 +108,7 @@ export function LinkedInGPT() {
           <p className="text-gray-600">SocioCopilot</p>
         </div>
 
-        {/* Content Suggestions */}
-        <div className="mb-20">
-          <div className="text-center mb-12">
-            <h2 className="text-xl font-semibold text-gray-900 mb-3">
-              What would you like to write about?
-            </h2>
-            <p className="text-gray-600 leading-relaxed">
-              Choose a topic below or describe your own idea
-            </p>
-          </div>
-          
-          <div className="grid gap-4 max-w-2xl mx-auto">
-            {promptSuggestions.map((prompt, index) => (
-              <div 
-                key={index}
-                onClick={() => setInput(prompt)}
-                className="group relative bg-white/60 hover:bg-white border border-gray-100 hover:border-amber-200 rounded-xl p-6 cursor-pointer transition-all duration-300 hover:shadow-sm hover:-translate-y-0.5"
-              >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 bg-gradient-to-br from-amber-50 to-amber-100 rounded-lg flex items-center justify-center group-hover:from-amber-100 group-hover:to-amber-200 transition-all duration-300">
-                    <span className="text-lg">✍️</span>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-gray-800 font-medium group-hover:text-gray-900 transition-colors">
-                      {prompt}
-                    </p>
-                    <p className="text-sm text-gray-500 mt-1 group-hover:text-gray-600 transition-colors">
-                      Click to start writing
-                    </p>
-                  </div>
-                  <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-                    <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center">
-                      <span className="text-amber-600 text-sm">→</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Content Suggestions moved to bottom */}
 
         {/* Loading State */}
         {isGenerating && (
@@ -269,29 +230,27 @@ export function LinkedInGPT() {
               <Edit3 className="w-8 h-8 text-amber-600" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Ready to create amazing content</h3>
-            <p className="text-gray-600">Choose an idea above or describe your own below</p>
+            <p className="text-gray-600">Use the quick ideas below or describe your own</p>
           </div>
         )}
       </div>
 
       {/* Enhanced Input Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#fffaf2] via-[#fffaf2] to-[#fffaf2]/95 backdrop-blur-sm border-t border-gray-200/80 p-6">
-        <div className="max-w-2xl mx-auto">
-          {/* Tone Selector */}
-          <div className="flex items-center gap-2 mb-4">
-            <span className="text-sm text-gray-600">Tone:</span>
-            <div className="flex gap-2">
-              {toneOptions.map((tone) => (
+        <div className="max-w-4xl mx-auto">
+          {/* Horizontal Suggestions */}
+          <div className="mb-4">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-sm text-gray-600">Quick ideas:</span>
+            </div>
+            <div className="flex gap-2 overflow-x-auto pb-2">
+              {promptSuggestions.map((prompt, index) => (
                 <button
-                  key={tone.value}
-                  onClick={() => setSelectedTone(tone.value)}
-                  className={`px-3 py-1.5 text-sm rounded-full transition-all ${
-                    selectedTone === tone.value
-                      ? 'bg-amber-100 text-amber-700 font-medium'
-                      : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
-                  }`}
+                  key={index}
+                  onClick={() => setInput(prompt)}
+                  className="flex-shrink-0 bg-white/60 hover:bg-white border border-gray-100 hover:border-amber-200 rounded-lg px-4 py-2 text-sm text-gray-700 hover:text-gray-900 transition-all duration-200 hover:shadow-sm whitespace-nowrap"
                 >
-                  {tone.label}
+                  {prompt}
                 </button>
               ))}
             </div>
@@ -299,13 +258,38 @@ export function LinkedInGPT() {
 
           {/* Input Container */}
           <div className="bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 focus-within:border-amber-300 focus-within:shadow-amber-100/50">
+            {/* Tone indicator in textarea header */}
+            <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-gray-100">
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-gray-500">Tone:</span>
+                <span className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded-full font-medium">
+                  {selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1)}
+                </span>
+              </div>
+              <div className="flex gap-1">
+                {toneOptions.map((tone) => (
+                  <button
+                    key={tone.value}
+                    onClick={() => setSelectedTone(tone.value)}
+                    className={`px-2 py-1 text-xs rounded-md transition-all ${
+                      selectedTone === tone.value
+                        ? 'bg-amber-100 text-amber-700'
+                        : 'text-gray-500 hover:bg-gray-100'
+                    }`}
+                  >
+                    {tone.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+            
             <div className="flex items-end gap-4 p-4">
               <div className="flex-1">
                 <Textarea 
                   placeholder="Describe what you'd like to write about... (e.g., 'Share a productivity tip for remote workers')" 
                   value={input} 
                   onChange={(e) => setInput(e.target.value)}
-                  className="min-h-[60px] max-h-[120px] border-0 bg-transparent text-base placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 resize-none p-0"
+                  className="min-h-[80px] max-h-[140px] border-0 bg-transparent text-base placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 resize-none p-0 w-full"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
                       e.preventDefault();
