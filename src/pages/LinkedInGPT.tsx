@@ -65,11 +65,11 @@ export function LinkedInGPT() {
         {/* Header */}
         <div className="mb-6">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+            <div className="w-10 h-10 bg-gradient-to-r from-amber-600 to-orange-600 rounded-full flex items-center justify-center">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-pink-600">LinkedIn GPT</h1>
+              <h1 className="text-2xl font-bold text-amber-700">LinkedIn GPT</h1>
             <p className="text-gray-600">AI-powered LinkedIn content writer</p>
           </div>
         </div>
@@ -103,7 +103,7 @@ export function LinkedInGPT() {
               variant="outline"
               size="sm"
               onClick={() => setInput(prompt)}
-              className="text-xs hover:bg-purple-50 hover:border-purple-200"
+              className="text-xs hover:bg-amber-50 hover:border-amber-200"
             >
               {prompt}
             </Button>
@@ -119,13 +119,13 @@ export function LinkedInGPT() {
             className={`flex gap-3 ${message.type === "user" ? "justify-end" : "justify-start"}`}
           >
             {message.type === "ai" && (
-              <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center flex-shrink-0">
+              <div className="w-8 h-8 bg-gradient-to-r from-amber-600 to-orange-600 rounded-full flex items-center justify-center flex-shrink-0">
                 <Sparkles className="w-4 h-4 text-white" />
               </div>
             )}
             
             <div className={`max-w-2xl ${message.type === "user" ? "order-first" : ""}`}>
-              <Card className={message.type === "user" ? "bg-purple-600 text-white" : "bg-white"}>
+              <Card className={message.type === "user" ? "bg-amber-600 text-white" : "bg-white"}>
                 <CardContent className="p-4">
                   <p className="text-sm whitespace-pre-line">{message.content}</p>
                   
@@ -179,7 +179,7 @@ export function LinkedInGPT() {
               onKeyPress={(e) => e.key === "Enter" && handleSend()}
               className="flex-1"
             />
-            <Button onClick={handleSend} className="bg-purple-600 hover:bg-purple-700">
+            <Button onClick={handleSend} className="bg-amber-600 hover:bg-amber-700">
               <Send className="w-4 h-4" />
             </Button>
           </div>

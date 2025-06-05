@@ -43,7 +43,7 @@ export function MyPosts() {
       <div className="bg-card border-b border-border px-8 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <h1 className="text-2xl font-semibold text-pink-600">My Posts</h1>
+            <h1 className="text-2xl font-semibold text-amber-700">My Posts</h1>
             <div className="flex items-center gap-2">
               <Button
                 variant="ghost"
@@ -84,7 +84,7 @@ export function MyPosts() {
                 Month
               </Button>
             </div>
-            <Button className="h-9 px-4 bg-blue-600 hover:bg-blue-700 text-white font-medium">
+            <Button className="h-9 px-4 bg-amber-600 hover:bg-amber-700 text-white font-medium">
               <Plus className="w-4 h-4 mr-2" />
               New Post
             </Button>
@@ -118,7 +118,7 @@ export function MyPosts() {
                   {dayData.posts.map((post) => (
                     <div
                       key={post.id}
-                      className="group bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 cursor-pointer hover:border-blue-200"
+                      className="group bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 cursor-pointer hover:border-amber-200"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
@@ -158,10 +158,10 @@ export function MyPosts() {
 
                   {/* Add Post Area */}
                   <div className="flex-1 flex items-end">
-                    <button className="w-full p-3 border-2 border-dashed border-border rounded-lg hover:border-blue-300 hover:bg-blue-50/30 transition-all duration-200 group">
+                    <button className="w-full p-3 border-2 border-dashed border-border rounded-lg hover:border-amber-300 hover:bg-amber-50/30 transition-all duration-200 group">
                       <div className="flex flex-col items-center gap-2">
-                        <Plus className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
-                        <span className="text-xs text-gray-500 group-hover:text-blue-600 font-medium">Add post</span>
+                        <Plus className="w-4 h-4 text-gray-400 group-hover:text-amber-500 transition-colors" />
+                        <span className="text-xs text-gray-500 group-hover:text-amber-600 font-medium">Add post</span>
                       </div>
                     </button>
                   </div>

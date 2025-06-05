@@ -163,7 +163,7 @@ export function ViralContent() {
           <div className="mb-12">
             <div className="flex items-center justify-between mb-6">
               <div className="text-center w-full">
-                <h1 className="text-5xl font-bold text-pink-600 mb-4">
+                <h1 className="text-5xl font-bold text-amber-700 mb-4">
                   Viral Content
                 </h1>
                 <p className="text-gray-600 dark:text-gray-400 text-lg w-full">
@@ -181,7 +181,7 @@ export function ViralContent() {
             {/* Search Bar */}
             <div className="relative max-w-3xl mx-auto">
               <Search className="absolute left-5 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <Input placeholder="Search viral content, creators, or topics..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-14 h-14 bg-gradient-to-r from-white/90 to-white/80 dark:from-gray-800/90 dark:to-gray-800/80 backdrop-blur-sm shadow-xl border-0 focus:ring-2 focus:ring-purple-400 focus:shadow-2xl transition-all duration-300 text-base rounded-2xl" />
+              <Input placeholder="Search viral content, creators, or topics..." value={searchQuery} onChange={e => setSearchQuery(e.target.value)} className="pl-14 h-14 bg-gradient-to-r from-white/90 to-white/80 dark:from-gray-800/90 dark:to-gray-800/80 backdrop-blur-sm shadow-xl border-0 focus:ring-2 focus:ring-amber-400 focus:shadow-2xl transition-all duration-300 text-base rounded-2xl" />
             </div>
 
             {/* Filter Pills and Sort */}
@@ -189,10 +189,10 @@ export function ViralContent() {
               <div className="flex flex-wrap gap-3">
                 {Object.entries(filters).map(([key, options]) => <DropdownMenu key={key}>
                     <DropdownMenuTrigger asChild>
-                      <Button variant="outline" className={`h-10 px-4 rounded-full border-2 transition-all duration-300 hover:shadow-lg ${selectedFilters[key as keyof typeof selectedFilters] ? 'bg-purple-100 border-purple-300 text-purple-700 dark:bg-purple-900/50 dark:border-purple-600 dark:text-purple-300' : 'bg-white/80 border-gray-200 text-gray-700 hover:bg-gray-50 dark:bg-gray-800/80 dark:border-gray-600 dark:text-gray-300'}`}>
+                      <Button variant="outline" className={`h-10 px-4 rounded-full border-2 transition-all duration-300 hover:shadow-lg ${selectedFilters[key as keyof typeof selectedFilters] ? 'bg-amber-100 border-amber-300 text-amber-700 dark:bg-amber-900/50 dark:border-amber-600 dark:text-amber-300' : 'bg-white/80 border-gray-200 text-gray-700 hover:bg-gray-50 dark:bg-gray-800/80 dark:border-gray-600 dark:text-gray-300'}`}>
                         <span className="mr-2">{filterIcons[key as keyof typeof filterIcons]}</span>
                         {key.charAt(0).toUpperCase() + key.slice(1)}
-                        {selectedFilters[key as keyof typeof selectedFilters] && <Badge variant="secondary" className="ml-2 h-5 px-2 text-xs bg-purple-200 text-purple-800 dark:bg-purple-800 dark:text-purple-200">
+                        {selectedFilters[key as keyof typeof selectedFilters] && <Badge variant="secondary" className="ml-2 h-5 px-2 text-xs bg-amber-200 text-amber-800 dark:bg-amber-800 dark:text-amber-200">
                             {selectedFilters[key as keyof typeof selectedFilters]}
                           </Badge>}
                       </Button>
@@ -241,7 +241,7 @@ export function ViralContent() {
 
                 <CardContent className="p-0">
                   {/* Gradient Header */}
-                  <div className="h-1 bg-gradient-to-r from-purple-500 via-blue-500 to-indigo-500"></div>
+                  <div className="h-1 bg-gradient-to-r from-amber-500 via-orange-500 to-yellow-500"></div>
                   
                   <div className="p-6">
                     {/* Author Header with Hover Card */}
@@ -249,9 +249,9 @@ export function ViralContent() {
                       <HoverCard>
                         <HoverCardTrigger asChild>
                           <div className="flex items-center gap-3 cursor-pointer">
-                            <Avatar className="w-12 h-12 border-2 border-white shadow-lg ring-2 ring-purple-100 dark:ring-purple-800">
+                            <Avatar className="w-12 h-12 border-2 border-white shadow-lg ring-2 ring-amber-100 dark:ring-amber-800">
                               <AvatarImage src={post.avatar} alt={post.author} className="object-cover" />
-                              <AvatarFallback className="bg-gradient-to-r from-purple-500 to-blue-500 text-white font-bold text-sm">
+                              <AvatarFallback className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-bold text-sm">
                                 {post.author.split(' ').map(n => n[0]).join('')}
                               </AvatarFallback>
                             </Avatar>
@@ -274,7 +274,7 @@ export function ViralContent() {
                                 <Users className="w-4 h-4" />
                                 <span>{post.followers} followers</span>
                               </div>
-                              <Button className="mt-3 w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0">
+                              <Button className="mt-3 w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white border-0">
                                 Follow
                               </Button>
                             </div>
@@ -285,8 +285,8 @@ export function ViralContent() {
                       <div className="flex-shrink-0">
                         <Tooltip>
                           <TooltipTrigger asChild>
-                            <Button variant="ghost" size="sm" className="h-9 w-9 p-0 hover:bg-purple-50 dark:hover:bg-purple-900/50 rounded-full group/btn transition-all duration-300" onClick={() => toggleBookmark(post.id)}>
-                              <Bookmark className={`w-4 h-4 transition-all duration-300 ${post.isBookmarked ? 'text-purple-600 fill-purple-600' : 'text-gray-400 group-hover/btn:text-purple-600'}`} />
+                            <Button variant="ghost" size="sm" className="h-9 w-9 p-0 hover:bg-amber-50 dark:hover:bg-amber-900/50 rounded-full group/btn transition-all duration-300" onClick={() => toggleBookmark(post.id)}>
+                              <Bookmark className={`w-4 h-4 transition-all duration-300 ${post.isBookmarked ? 'text-amber-600 fill-amber-600' : 'text-gray-400 group-hover/btn:text-amber-600'}`} />
                             </Button>
                           </TooltipTrigger>
                           <TooltipContent>
@@ -351,7 +351,7 @@ export function ViralContent() {
                     {/* Tags and Time */}
                     <div className="flex items-center justify-between border-t border-gray-100 dark:border-gray-700 pt-4">
                       <div className="flex flex-wrap gap-2">
-                        <Badge variant="secondary" className="text-xs bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/50 dark:to-blue-900/50 text-purple-700 dark:text-purple-300 border-0 font-medium px-3 py-1">
+                        <Badge variant="secondary" className="text-xs bg-gradient-to-r from-amber-100 to-orange-100 dark:from-amber-900/50 dark:to-orange-900/50 text-amber-700 dark:text-amber-300 border-0 font-medium px-3 py-1">
                           {post.tone}
                         </Badge>
                         <Badge variant="outline" className="text-xs border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 font-medium px-3 py-1">
@@ -367,7 +367,7 @@ export function ViralContent() {
 
           {/* Load More Button */}
           {visiblePosts < posts.length && <div className="text-center">
-              <Button onClick={loadMore} className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white border-0 px-8 py-3 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+              <Button onClick={loadMore} className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white border-0 px-8 py-3 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                 <TrendingUp className="w-4 h-4 mr-2" />
                 Load More Viral Content
               </Button>

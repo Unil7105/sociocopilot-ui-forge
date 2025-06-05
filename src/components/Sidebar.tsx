@@ -44,10 +44,10 @@ export function Sidebar() {
     <SidebarComponent className="w-64 border-r border-gray-200 bg-white">
       <SidebarHeader className="p-6 border-b border-gray-200">
         <div className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
+          <div className="w-8 h-8 bg-gradient-to-r from-amber-600 to-orange-600 rounded-lg flex items-center justify-center">
             <Sparkles className="w-5 h-5 text-white" />
           </div>
-          <span className="font-bold text-xl bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
+          <span className="font-bold text-xl bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
             SocioCopilot
           </span>
         </div>
@@ -65,7 +65,7 @@ export function Sidebar() {
                       className={({ isActive }) =>
                         `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                           isActive
-                            ? "bg-purple-100 text-purple-700"
+                            ? "bg-amber-100 text-amber-700"
                             : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                         }`
                       }
@@ -92,7 +92,7 @@ export function Sidebar() {
                         className={({ isActive }) =>
                           `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                             isActive
-                              ? "bg-purple-100 text-purple-700"
+                              ? "bg-amber-100 text-amber-700"
                               : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
                           }`
                         }
