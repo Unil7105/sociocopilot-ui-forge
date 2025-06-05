@@ -40,7 +40,7 @@ export function MyPosts() {
   return (
     <div className="min-h-screen bg-amber-50">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-8 py-6">
+      <div className="bg-card border-b border-border px-8 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
             <h1 className="text-2xl font-semibold text-pink-600">My Posts</h1>
@@ -66,12 +66,12 @@ export function MyPosts() {
           </div>
           
           <div className="flex items-center gap-3">
-            <div className="flex items-center bg-gray-100 rounded-lg p-1">
+            <div className="flex items-center bg-muted rounded-lg p-1">
               <Button
                 variant={selectedView === "week" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setSelectedView("week")}
-                className={`h-7 px-3 text-xs font-semibold ${selectedView === "week" ? "bg-white shadow-sm text-gray-900" : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"}`}
+                className={`h-7 px-3 text-xs font-semibold ${selectedView === "week" ? "bg-card shadow-sm" : "hover:bg-accent"}`}
               >
                 Week
               </Button>
@@ -79,7 +79,7 @@ export function MyPosts() {
                 variant={selectedView === "month" ? "default" : "ghost"}
                 size="sm"
                 onClick={() => setSelectedView("month")}
-                className={`h-7 px-3 text-xs font-semibold ${selectedView === "month" ? "bg-white shadow-sm text-gray-900" : "text-gray-700 hover:text-gray-900 hover:bg-gray-50"}`}
+                className={`h-7 px-3 text-xs font-semibold ${selectedView === "month" ? "bg-card shadow-sm" : "hover:bg-accent"}`}
               >
                 Month
               </Button>
@@ -94,11 +94,11 @@ export function MyPosts() {
 
       {/* Calendar Container */}
       <div className="p-8">
-        <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
+        <div className="bg-card rounded-xl border border-border overflow-hidden">
           {/* Calendar Header */}
-          <div className="grid grid-cols-7 border-b border-gray-200">
+          <div className="grid grid-cols-7 border-b border-border">
             {weekDays.map((dayData, index) => (
-              <div key={index} className="p-4 text-center border-r border-gray-200 last:border-r-0">
+              <div key={index} className="p-4 text-center border-r border-border last:border-r-0">
                 <div className="text-xs font-medium text-gray-500 uppercase tracking-wide mb-1">
                   {dayData.day}
                 </div>
@@ -112,13 +112,13 @@ export function MyPosts() {
             {weekDays.map((dayData, index) => (
               <div 
                 key={index} 
-                className="border-r border-gray-200 last:border-r-0 p-3 bg-white hover:bg-gray-50/50 transition-colors"
+                className="border-r border-border last:border-r-0 p-3 bg-card hover:bg-accent/50 transition-colors"
               >
                 <div className="space-y-2 h-full">
                   {dayData.posts.map((post) => (
                     <div
                       key={post.id}
-                      className="group bg-white border border-gray-200 rounded-lg p-3 hover:shadow-md transition-all duration-200 cursor-pointer hover:border-blue-200"
+                      className="group bg-card border border-border rounded-lg p-3 hover:shadow-md transition-all duration-200 cursor-pointer hover:border-blue-200"
                     >
                       <div className="flex items-center justify-between mb-2">
                         <div className="flex items-center gap-2">
@@ -158,7 +158,7 @@ export function MyPosts() {
 
                   {/* Add Post Area */}
                   <div className="flex-1 flex items-end">
-                    <button className="w-full p-3 border-2 border-dashed border-gray-200 rounded-lg hover:border-blue-300 hover:bg-blue-50/30 transition-all duration-200 group">
+                    <button className="w-full p-3 border-2 border-dashed border-border rounded-lg hover:border-blue-300 hover:bg-blue-50/30 transition-all duration-200 group">
                       <div className="flex flex-col items-center gap-2">
                         <Plus className="w-4 h-4 text-gray-400 group-hover:text-blue-500 transition-colors" />
                         <span className="text-xs text-gray-500 group-hover:text-blue-600 font-medium">Add post</span>
