@@ -133,7 +133,7 @@ export function ViralTemplates() {
 
             {/* Pill-Style Category Filters */}
             <div className="flex flex-wrap justify-center gap-3">
-              {categories.map(category => <Button key={category.name} variant="ghost" size="sm" onClick={() => setSelectedCategory(category.name)} className={`px-6 py-3 font-semibold transition-all duration-300 rounded-full text-sm hover:scale-105 ${selectedCategory === category.name ? "bg-white text-purple-600 shadow-xl scale-105 hover:shadow-2xl" : "bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm border border-white/30"}`}>
+              {categories.map(category => <Button key={category.name} variant="ghost" size="sm" onClick={() => setSelectedCategory(category.name)} className={`px-6 py-3 font-semibold transition-all duration-300 rounded-full text-sm hover:scale-105 ${selectedCategory === category.name ? "bg-white text-purple-600 shadow-xl scale-105 hover:shadow-2xl" : "bg-white/20 text-foreground hover:bg-white/30 backdrop-blur-sm border border-white/30"}`}>
                   <span className="mr-2 text-base">{category.icon}</span>
                   {category.name}
                 </Button>)}
