@@ -125,17 +125,21 @@ export function ViralContent() {
             />
           </div>
 
-          <div className="bg-white/60 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-white/20">
-            <div className="flex flex-wrap gap-4">
+          <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-xl border border-white/30 hover:shadow-2xl transition-all duration-300">
+            <div className="mb-4">
+              <h3 className="text-lg font-bold text-gray-800 mb-2">Filter Content</h3>
+              <p className="text-sm text-gray-600">Discover content that matches your criteria</p>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               {Object.entries(filters).map(([key, options]) => (
-                <div key={key} className="flex items-center gap-3">
-                  <span className="text-sm font-semibold text-gray-700 capitalize min-w-16">{key}:</span>
+                <div key={key} className="space-y-2">
+                  <label className="text-sm font-bold text-gray-700 capitalize block">{key}</label>
                   <select 
-                    className="px-4 py-2.5 border-0 rounded-xl text-sm bg-white/80 shadow-md focus:shadow-lg focus:ring-2 focus:ring-purple-300 transition-all duration-200 min-w-24"
+                    className="w-full px-4 py-3 border-0 rounded-2xl text-sm bg-white shadow-lg focus:shadow-xl focus:ring-2 focus:ring-purple-400 transition-all duration-300 font-medium text-gray-700 hover:bg-gray-50"
                     value={selectedFilters[key as keyof typeof selectedFilters]}
                     onChange={(e) => setSelectedFilters(prev => ({ ...prev, [key]: e.target.value }))}
                   >
-                    <option value="">All</option>
+                    <option value="">All {key}</option>
                     {options.map(option => (
                       <option key={option} value={option}>{option}</option>
                     ))}
