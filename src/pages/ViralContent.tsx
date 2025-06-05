@@ -172,11 +172,7 @@ export function ViralContent() {
               </div>
               
               {/* Dark Mode Toggle */}
-              <div className="flex items-center gap-3 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm rounded-2xl p-3 shadow-lg">
-                <Sun className="w-4 h-4 text-yellow-500" />
-                <Switch checked={theme === "dark"} onCheckedChange={checked => setTheme(checked ? "dark" : "light")} className="data-[state=checked]:bg-purple-600" />
-                <Moon className="w-4 h-4 text-purple-600" />
-              </div>
+              
             </div>
           </div>
 
