@@ -103,7 +103,7 @@ export function LinkedInGPT() {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-[#fffaf2] font-['Inter',sans-serif] relative">
+    <div className="flex flex-col min-h-screen bg-[#fffaf2] font-['Inter',sans-serif]">
       {/* Header */}
       <div className="sticky top-0 bg-[#fffaf2]/95 backdrop-blur-sm border-b border-amber-200/30 z-50 shadow-sm">
         <div className="max-w-4xl mx-auto px-6 py-4">
