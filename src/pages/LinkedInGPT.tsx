@@ -238,7 +238,7 @@ export function LinkedInGPT() {
 
       {/* Enhanced Input Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#fffaf2] via-[#fffaf2] to-[#fffaf2]/95 backdrop-blur-sm border-t border-gray-200/80 p-6">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-2xl mx-auto">
           {/* Horizontal Suggestions */}
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-3">
