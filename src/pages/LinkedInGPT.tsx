@@ -54,6 +54,7 @@ export function LinkedInGPT() {
   const [messages, setMessages] = useState(conversationHistory);
   const [selectedTone, setSelectedTone] = useState("professional");
   const [isGenerating, setIsGenerating] = useState(false);
+  
   const handleSend = () => {
     if (!input.trim()) return;
     setIsGenerating(true);
@@ -83,8 +84,17 @@ export function LinkedInGPT() {
       setIsGenerating(false);
     }, 2000);
   };
-  const promptSuggestions = ["Share a productivity tip", "Talk about a recent win", "Share a career challenge", "Discuss remote work insights", "Write about leadership lessons"];
-  return <div className="min-h-screen bg-[#fffaf2] font-['Inter',sans-serif]">
+
+  const promptSuggestions = [
+    "Share a productivity tip",
+    "Talk about a recent win", 
+    "Share a career challenge",
+    "Discuss remote work insights",
+    "Write about leadership lessons"
+  ];
+
+  return (
+    <div className="min-h-screen bg-[#fffaf2] font-['Inter',sans-serif]">
       <div className="max-w-2xl mx-auto px-6 py-12">
         
         {/* Header */}
@@ -101,7 +111,8 @@ export function LinkedInGPT() {
         {/* Content Suggestions moved to bottom */}
 
         {/* Loading State */}
-        {isGenerating && <div className="mb-16 animate-fade-in">
+        {isGenerating && (
+          <div className="mb-16 animate-fade-in">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-6 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full flex items-center justify-center">
                 <Sparkles className="w-3 h-3 text-white animate-pulse" />
@@ -110,19 +121,15 @@ export function LinkedInGPT() {
             </div>
             <div className="flex gap-1.5 ml-9">
               <div className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse"></div>
-              <div className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" style={{
-            animationDelay: '0.3s'
-          }}></div>
-              <div className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" style={{
-            animationDelay: '0.6s'
-          }}></div>
+              <div className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+              <div className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" style={{ animationDelay: '0.6s' }}></div>
             </div>
-          </div>}
+          </div>
+        )}
 
         {/* Generated Posts */}
-        {messages.filter(m => m.type === 'ai').map((message, index) => <div key={message.id} className="mt-6 mb-8 animate-fade-in" style={{
-        animationDelay: `${index * 0.1}s`
-      }}>
+        {messages.filter(m => m.type === 'ai').map((message, index) => (
+          <div key={message.id} className="mt-6 mb-8 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
             {/* AI Response Container */}
             <div className="bg-white rounded-xl p-8 max-w-[680px] shadow-sm border border-gray-100/50">
               {/* AI Identity Header */}
@@ -170,22 +177,32 @@ export function LinkedInGPT() {
                 {/* Body */}
                 <div className="text-gray-600 text-[15px] leading-relaxed space-y-4">
                   {message.content.split('\n').slice(1).map((line, index) => {
-                if (line.trim() === '') return null;
-                if (line.startsWith('→')) {
-                  return <div key={index} className="flex items-start gap-3 ml-4">
+                    if (line.trim() === '') return null;
+                    if (line.startsWith('→')) {
+                      return (
+                        <div key={index} className="flex items-start gap-3 ml-4">
                           <span className="text-amber-500 mt-1 text-sm">•</span>
                           <span>{line.substring(2)}</span>
-                        </div>;
-                }
-                if (line.includes('#')) {
-                  return <p key={index} className="text-sm">
-                          {line.split(' ').map((word, wordIndex) => word.startsWith('#') ? <span key={wordIndex} className="text-amber-600 mr-1">
+                        </div>
+                      );
+                    }
+                    if (line.includes('#')) {
+                      return (
+                        <p key={index} className="text-sm">
+                          {line.split(' ').map((word, wordIndex) => 
+                            word.startsWith('#') ? (
+                              <span key={wordIndex} className="text-amber-600 mr-1">
                                 {word}
-                              </span> : <span key={wordIndex} className="mr-1">{word}</span>)}
-                        </p>;
-                }
-                return <p key={index}>{line}</p>;
-              })}
+                              </span>
+                            ) : (
+                              <span key={wordIndex} className="mr-1">{word}</span>
+                            )
+                          )}
+                        </p>
+                      );
+                    }
+                    return <p key={index}>{line}</p>;
+                  })}
                 </div>
               </div>
               
@@ -196,36 +213,47 @@ export function LinkedInGPT() {
               </div>
               
               {/* Engagement Footer */}
-              {message.engagement && <div className="mt-4 pt-4 border-t border-gray-100">
+              {message.engagement && (
+                <div className="mt-4 pt-4 border-t border-gray-100">
                   <p className="text-xs text-gray-500">
                     predicted engagement: {message.engagement.likes} likes • {message.engagement.comments} comments • {message.engagement.shares} shares
                   </p>
-                </div>}
+                </div>
+              )}
             </div>
-          </div>)}
+          </div>
+        ))}
 
         {/* Empty State */}
-        {!isGenerating && messages.filter(m => m.type === 'ai').length === 0 && <div className="text-center py-16">
+        {!isGenerating && messages.filter(m => m.type === 'ai').length === 0 && (
+          <div className="text-center py-16">
             <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Edit3 className="w-8 h-8 text-amber-600" />
             </div>
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Ready to create amazing content</h3>
             <p className="text-gray-600">Use the quick ideas below or describe your own</p>
-          </div>}
+          </div>
+        )}
       </div>
 
       {/* Enhanced Input Bar */}
       <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#fffaf2] via-[#fffaf2] to-[#fffaf2]/95 backdrop-blur-sm border-t border-gray-200/80 p-6">
-        <div className="w-full mx-auto">
+        <div className="max-w-4xl mx-auto">
           {/* Horizontal Suggestions */}
           <div className="mb-4">
             <div className="flex items-center gap-2 mb-3">
               <span className="text-sm text-gray-600">Quick ideas:</span>
             </div>
             <div className="flex gap-2 overflow-x-auto pb-2">
-              {promptSuggestions.map((prompt, index) => <button key={index} onClick={() => setInput(prompt)} className="flex-shrink-0 bg-white/70 hover:bg-white border border-gray-150 hover:border-amber-200 rounded-xl px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 transition-all duration-200 hover:shadow-md hover:underline hover:-translate-y-0.5 whitespace-nowrap font-medium">
+              {promptSuggestions.map((prompt, index) => (
+                <button
+                  key={index}
+                  onClick={() => setInput(prompt)}
+                  className="flex-shrink-0 bg-white/70 hover:bg-white border border-gray-150 hover:border-amber-200 rounded-xl px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 transition-all duration-200 hover:shadow-md hover:underline hover:-translate-y-0.5 whitespace-nowrap font-medium"
+                >
                   {prompt}
-                </button>)}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -241,40 +269,64 @@ export function LinkedInGPT() {
               </div>
               <TooltipProvider>
                 <div className="flex gap-1">
-                  {toneOptions.map(tone => <Tooltip key={tone.value}>
+                  {toneOptions.map((tone) => (
+                    <Tooltip key={tone.value}>
                       <TooltipTrigger asChild>
-                        <button onClick={() => setSelectedTone(tone.value)} className={`px-2.5 py-1 text-xs rounded-lg transition-all duration-200 ${selectedTone === tone.value ? 'bg-amber-100 text-amber-700 scale-105 shadow-sm' : 'text-gray-500 hover:bg-gray-100 hover:scale-105'}`}>
+                        <button
+                          onClick={() => setSelectedTone(tone.value)}
+                          className={`px-2.5 py-1 text-xs rounded-lg transition-all duration-200 ${
+                            selectedTone === tone.value
+                              ? 'bg-amber-100 text-amber-700 scale-105 shadow-sm'
+                              : 'text-gray-500 hover:bg-gray-100 hover:scale-105'
+                          }`}
+                        >
                           {tone.label}
                         </button>
                       </TooltipTrigger>
                       <TooltipContent>
                         <p>{tone.value === 'professional' ? 'confident & clear' : tone.value === 'friendly' ? 'conversational' : 'impactful'}</p>
                       </TooltipContent>
-                    </Tooltip>)}
+                    </Tooltip>
+                  ))}
                 </div>
               </TooltipProvider>
             </div>
             
             <div className="flex items-end gap-4 p-4">
               <div className="flex-1">
-                <Textarea placeholder="Describe what you'd like to write about... (e.g., 'Share a productivity tip for remote workers')" value={input} onChange={e => setInput(e.target.value)} className="min-h-[80px] max-h-[140px] border-0 bg-transparent text-base placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 resize-none p-0 w-full" onKeyDown={e => {
-                if (e.key === "Enter" && !e.shiftKey) {
-                  e.preventDefault();
-                  handleSend();
-                }
-              }} disabled={isGenerating} />
+                <Textarea 
+                  placeholder="Describe what you'd like to write about... (e.g., 'Share a productivity tip for remote workers')" 
+                  value={input} 
+                  onChange={(e) => setInput(e.target.value)}
+                  className="min-h-[80px] max-h-[140px] border-0 bg-transparent text-base placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 resize-none p-0 w-full"
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                      e.preventDefault();
+                      handleSend();
+                    }
+                  }}
+                  disabled={isGenerating}
+                />
               </div>
               <TooltipProvider>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <Button onClick={handleSend} disabled={!input.trim() || isGenerating} className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-3 h-12 font-medium rounded-xl transition-all duration-300 hover:scale-105 hover:translate-x-1 hover:shadow-lg disabled:hover:scale-100 disabled:hover:translate-x-0 disabled:hover:shadow-none">
-                      {isGenerating ? <div className="flex items-center gap-2">
+                    <Button 
+                      onClick={handleSend} 
+                      disabled={!input.trim() || isGenerating}
+                      className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-3 h-12 font-medium rounded-xl transition-all duration-300 hover:scale-105 hover:translate-x-1 hover:shadow-lg disabled:hover:scale-100 disabled:hover:translate-x-0 disabled:hover:shadow-none"
+                    >
+                      {isGenerating ? (
+                        <div className="flex items-center gap-2">
                           <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
                           <span>writing...</span>
-                        </div> : <div className="flex items-center gap-2">
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
                           <span>generate</span>
                           <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                        </div>}
+                        </div>
+                      )}
                     </Button>
                   </TooltipTrigger>
                   <TooltipContent>
@@ -294,5 +346,6 @@ export function LinkedInGPT() {
           </div>
         </div>
       </div>
-    </div>;
+    </div>
+  );
 }
