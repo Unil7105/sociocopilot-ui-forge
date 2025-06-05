@@ -237,19 +237,16 @@ export function LinkedInGPT() {
       </div>
 
       {/* Enhanced Input Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-[#fffaf2] via-[#fffaf2] to-[#fffaf2]/95 backdrop-blur-sm border-t border-gray-200/80 p-6">
+      <div className="fixed bottom-0 left-0 right-0 bg-gradient-to-t from-white via-white to-white/98 backdrop-blur-md border-t border-gray-200/60 p-4 shadow-lg">
         <div className="max-w-4xl mx-auto">
           {/* Horizontal Suggestions */}
-          <div className="mb-4">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-sm text-gray-600">Quick ideas:</span>
-            </div>
-            <div className="flex gap-2 overflow-x-auto pb-2">
+          <div className="mb-3">
+            <div className="flex gap-2 overflow-x-auto scrollbar-hide">
               {promptSuggestions.map((prompt, index) => (
                 <button
                   key={index}
                   onClick={() => setInput(prompt)}
-                  className="flex-shrink-0 bg-white/70 hover:bg-white border border-gray-150 hover:border-amber-200 rounded-xl px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 transition-all duration-200 hover:shadow-md hover:underline hover:-translate-y-0.5 whitespace-nowrap font-medium"
+                  className="flex-shrink-0 bg-gray-50 hover:bg-amber-50 border border-gray-200 hover:border-amber-300 rounded-lg px-3 py-1.5 text-sm text-gray-700 hover:text-amber-700 transition-all duration-200 hover:shadow-sm whitespace-nowrap font-medium"
                 >
                   {prompt}
                 </button>
@@ -258,12 +255,12 @@ export function LinkedInGPT() {
           </div>
 
           {/* Input Container */}
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-lg hover:shadow-xl transition-all duration-300 focus-within:border-amber-300 focus-within:shadow-amber-100/50">
+          <div className="bg-white rounded-xl border border-gray-200 shadow-md hover:shadow-lg transition-all duration-300 focus-within:border-amber-300 focus-within:ring-2 focus-within:ring-amber-100">
             {/* Tone indicator in textarea header */}
-            <div className="flex items-center justify-between px-4 pt-3 pb-2 border-b border-gray-100">
+            <div className="flex items-center justify-between px-3 py-2 border-b border-gray-100">
               <div className="flex items-center gap-2">
                 <span className="text-xs text-gray-500">Tone:</span>
-                <span className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded-full font-medium">
+                <span className="text-xs text-amber-700 bg-amber-50 px-2 py-0.5 rounded-md font-medium">
                   {selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1)}
                 </span>
               </div>
@@ -274,7 +271,7 @@ export function LinkedInGPT() {
                       <TooltipTrigger asChild>
                         <button
                           onClick={() => setSelectedTone(tone.value)}
-                          className={`px-2.5 py-1 text-xs rounded-lg transition-all duration-200 ${
+                          className={`px-2 py-0.5 text-xs rounded-md transition-all duration-200 ${
                             selectedTone === tone.value
                               ? 'bg-amber-100 text-amber-700 scale-105 shadow-sm'
                               : 'text-gray-500 hover:bg-gray-100 hover:scale-105'
@@ -292,13 +289,13 @@ export function LinkedInGPT() {
               </TooltipProvider>
             </div>
             
-            <div className="flex items-end gap-4 p-4">
+            <div className="flex items-end gap-3 p-3">
               <div className="flex-1">
                 <Textarea 
-                  placeholder="Describe what you'd like to write about... (e.g., 'Share a productivity tip for remote workers')" 
+                  placeholder="Describe what you'd like to write about..." 
                   value={input} 
                   onChange={(e) => setInput(e.target.value)}
-                  className="min-h-[80px] max-h-[140px] border-0 bg-transparent text-base placeholder:text-gray-500 focus-visible:ring-0 focus-visible:ring-offset-0 resize-none p-0 w-full"
+                  className="min-h-[60px] max-h-[120px] border-0 bg-transparent text-sm placeholder:text-gray-400 focus-visible:ring-0 focus-visible:ring-offset-0 resize-none p-0 w-full"
                   onKeyDown={(e) => {
                     if (e.key === "Enter" && !e.shiftKey) {
                       e.preventDefault();
@@ -314,17 +311,17 @@ export function LinkedInGPT() {
                     <Button 
                       onClick={handleSend} 
                       disabled={!input.trim() || isGenerating}
-                      className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-3 h-12 font-medium rounded-xl transition-all duration-300 hover:scale-105 hover:translate-x-1 hover:shadow-lg disabled:hover:scale-100 disabled:hover:translate-x-0 disabled:hover:shadow-none"
+                      className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-4 py-2 h-10 font-medium rounded-lg transition-all duration-300 hover:scale-105 hover:translate-x-1 hover:shadow-md disabled:hover:scale-100 disabled:hover:translate-x-0 disabled:hover:shadow-none"
                     >
                       {isGenerating ? (
                         <div className="flex items-center gap-2">
-                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                          <span>writing...</span>
+                          <div className="w-3 h-3 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                          <span className="text-sm">writing...</span>
                         </div>
                       ) : (
                         <div className="flex items-center gap-2">
-                          <span>generate</span>
-                          <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                          <span className="text-sm">generate</span>
+                          <Send className="w-3 h-3 transition-transform group-hover:translate-x-0.5" />
                         </div>
                       )}
                     </Button>
@@ -337,8 +334,8 @@ export function LinkedInGPT() {
             </div>
             
             {/* Character Count & Hints */}
-            <div className="px-4 pb-3 flex items-center justify-between text-xs text-gray-500">
-              <span>Press Enter to send • Shift+Enter for new line</span>
+            <div className="px-3 pb-2 flex items-center justify-between text-xs text-gray-400">
+              <span>Enter to send • Shift+Enter for new line</span>
               <span className={input.length > 200 ? 'text-amber-600' : ''}>
                 {input.length}/500
               </span>
