@@ -166,7 +166,7 @@ export function ViralContent() {
                 <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent mb-4">
                   Viral Content
                 </h1>
-                <p className="text-gray-600 dark:text-gray-300 text-lg max-w-2xl">
+                <p className="text-gray-600 dark:text-gray-300 text-lg w-full">
                   Discover trending posts that convert, inspire your content strategy, and boost engagement
                 </p>
               </div>
