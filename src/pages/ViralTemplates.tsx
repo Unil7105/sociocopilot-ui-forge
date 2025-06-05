@@ -130,53 +130,52 @@ export function ViralTemplates() {
         {/* Templates Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-8">
           {filteredTemplates.map((template) => (
-            <Card key={template.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden hover:bg-white/95">
-              {/* Gradient Header */}
-              <div className="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
-              
-              <CardHeader className="pb-4">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <CardTitle className="text-xl mb-2 font-bold text-gray-900 group-hover:text-purple-700 transition-colors">
-                      {template.title}
-                    </CardTitle>
-                    <p className="text-sm text-gray-600 leading-relaxed">{template.description}</p>
+            <Card key={template.id} className="group hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border-0 shadow-lg bg-white/90 backdrop-blur-md rounded-2xl overflow-hidden hover:bg-white/95 h-full">
+              <CardContent className="p-0 h-full flex flex-col">
+                {/* Gradient Header */}
+                <div className="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 flex-shrink-0"></div>
+                
+                <div className="p-6 flex-1 flex flex-col">
+                  {/* Title and Category */}
+                  <div className="flex items-start justify-between mb-4">
+                    <div className="flex-1 min-w-0">
+                      <CardTitle className="text-xl mb-2 font-bold text-gray-900 group-hover:text-purple-700 transition-colors leading-tight">
+                        {template.title}
+                      </CardTitle>
+                      <p className="text-sm text-gray-600 leading-relaxed">{template.description}</p>
+                    </div>
+                    <Badge variant="secondary" className="text-xs bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700 border-0 font-semibold px-3 py-1 ml-3 flex-shrink-0">
+                      {template.category}
+                    </Badge>
                   </div>
-                  <Badge variant="secondary" className="text-xs bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700 border-0 font-semibold px-3 py-1 ml-3">
-                    {template.category}
-                  </Badge>
-                </div>
-              </CardHeader>
-              
-              <CardContent className="space-y-6">
-                {/* Template Preview */}
-                <div className="bg-gradient-to-r from-gray-50 to-blue-50/50 p-4 rounded-xl border border-gray-100">
-                  <p className="text-sm text-gray-700 italic leading-relaxed font-medium">{template.preview}</p>
-                </div>
 
-                {/* Stats */}
-                <div className="flex items-center justify-between text-sm">
-                  <div className="flex items-center gap-6">
+                  {/* Template Preview */}
+                  <div className="bg-gradient-to-r from-gray-50 to-blue-50/50 p-4 rounded-xl border border-gray-100 mb-6 flex-1">
+                    <p className="text-sm text-gray-700 italic leading-relaxed font-medium">{template.preview}</p>
+                  </div>
+
+                  {/* Stats */}
+                  <div className="flex items-center gap-6 mb-6 text-sm">
                     <div className="flex items-center gap-2 text-gray-600 hover:text-blue-600 transition-colors group/stat">
-                      <Eye className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <Eye className="w-4 h-4 group-hover/stat:scale-110 transition-transform flex-shrink-0" />
                       <span className="font-semibold">{template.uses.toLocaleString()} uses</span>
                     </div>
                     <div className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors group/stat">
-                      <Heart className="w-4 h-4 group-hover/stat:scale-110 transition-transform" />
+                      <Heart className="w-4 h-4 group-hover/stat:scale-110 transition-transform flex-shrink-0" />
                       <span className="font-semibold">{template.saves} saves</span>
                     </div>
                   </div>
-                </div>
 
-                {/* Actions */}
-                <div className="flex gap-3 pt-2 border-t border-gray-100">
-                  <Button size="sm" className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-md hover:shadow-lg transition-all duration-200 font-medium">
-                    <Copy className="w-4 h-4 mr-2" />
-                    Use Template
-                  </Button>
-                  <Button size="sm" variant="outline" className="bg-white/80 hover:bg-white border-gray-200 hover:shadow-md transition-all duration-200">
-                    <Heart className="w-4 h-4" />
-                  </Button>
+                  {/* Actions */}
+                  <div className="flex gap-3 pt-4 border-t border-gray-100 mt-auto">
+                    <Button size="sm" className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-md hover:shadow-lg transition-all duration-200 font-medium">
+                      <Copy className="w-4 h-4 mr-2" />
+                      Use Template
+                    </Button>
+                    <Button size="sm" variant="outline" className="bg-white/80 hover:bg-white border-gray-200 hover:shadow-md transition-all duration-200">
+                      <Heart className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
               </CardContent>
             </Card>
