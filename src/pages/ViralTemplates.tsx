@@ -118,7 +118,7 @@ export function ViralTemplates() {
               <h1 className="text-5xl font-bold mb-4 tracking-tight text-indigo-600">
                 Viral Templates
               </h1>
-              <p className="text-xl text-purple-100 max-w-2xl mx-auto leading-relaxed">
+              <p className="text-lg text-amber-800/80 max-w-2xl mx-auto leading-relaxed font-medium">
                 Ready-to-use templates for creating engaging content that converts and goes viral
               </p>
             </div>
@@ -133,7 +133,7 @@ export function ViralTemplates() {
 
             {/* Pill-Style Category Filters */}
             <div className="flex flex-wrap justify-center gap-3">
-              {categories.map(category => <Button key={category.name} variant="ghost" size="sm" onClick={() => setSelectedCategory(category.name)} className={`px-6 py-3 font-semibold transition-all duration-300 rounded-full text-sm hover:scale-105 ${selectedCategory === category.name ? "bg-white text-purple-600 shadow-xl scale-105 hover:shadow-2xl" : "bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm border border-white/30"}`}>
+              {categories.map(category => <Button key={category.name} variant="ghost" size="sm" onClick={() => setSelectedCategory(category.name)} className={`px-6 py-3 font-semibold transition-all duration-300 rounded-full text-sm hover:scale-105 ${selectedCategory === category.name ? "bg-white text-amber-700 shadow-xl scale-105 hover:shadow-2xl border border-amber-200" : "bg-amber-100/60 text-amber-800 hover:bg-amber-200/80 backdrop-blur-sm border border-amber-300/50"}`}>
                   <span className="mr-2 text-base">{category.icon}</span>
                   {category.name}
                 </Button>)}
@@ -216,15 +216,15 @@ export function ViralTemplates() {
 
                     {/* Enhanced Action Buttons */}
                     <div className="flex gap-4 pt-6 border-t border-gray-100 mt-auto">
-                      <Button size="sm" className="flex-1 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-lg hover:shadow-xl transition-all duration-300 font-semibold h-12 rounded-xl relative overflow-hidden group/btn">
-                        <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-indigo-400 opacity-0 group-hover/btn:opacity-20 transition-opacity duration-300"></div>
+                      <Button size="sm" className="flex-1 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all duration-300 font-semibold h-12 rounded-xl relative overflow-hidden group/btn text-white">
+                        <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 group-hover/btn:opacity-20 transition-opacity duration-300"></div>
                         <Copy className="w-5 h-5 mr-2" />
                         Use Template
                       </Button>
                       
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button size="sm" variant="outline" className={`h-12 w-12 rounded-xl border-2 transition-all duration-300 ${savedTemplates.includes(template.id) ? "bg-pink-50 border-pink-300 text-pink-600 hover:bg-pink-100" : "bg-white border-gray-200 text-gray-400 hover:border-pink-300 hover:text-pink-600"}`} onClick={() => handleSaveTemplate(template.id)}>
+                          <Button size="sm" variant="outline" className={`h-12 w-12 rounded-xl border-2 transition-all duration-300 ${savedTemplates.includes(template.id) ? "bg-amber-50 border-amber-300 text-amber-600 hover:bg-amber-100" : "bg-white border-gray-200 text-gray-400 hover:border-amber-300 hover:text-amber-600"}`} onClick={() => handleSaveTemplate(template.id)}>
                             <Heart className={`w-5 h-5 transition-all duration-300 ${savedTemplates.includes(template.id) ? "fill-current scale-110" : ""}`} />
                           </Button>
                         </TooltipTrigger>
@@ -240,7 +240,7 @@ export function ViralTemplates() {
 
           {/* Load More Button */}
           <div className="flex justify-center mt-16">
-            <Button size="lg" className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-2xl">
+            <Button size="lg" className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-xl hover:shadow-2xl transition-all duration-300 px-8 py-4 text-lg font-semibold rounded-2xl text-white">
               <Sparkles className="w-5 h-5 mr-2" />
               Load More Templates
             </Button>
