@@ -121,7 +121,7 @@ export function LinkedInGPT() {
 
       {/* Chat Container */}
       <div className="flex-1 overflow-hidden">
-        <div className="h-full overflow-y-auto pb-32">
+        <div className="h-full overflow-y-auto">
           <div className="max-w-4xl mx-auto px-6 py-8 space-y-6">
             {/* Empty State */}
             {messages.length === 0 && !isGenerating && (
@@ -277,7 +277,7 @@ export function LinkedInGPT() {
       </div>
 
       {/* Chat Input */}
-      <div className="absolute bottom-0 left-0 right-0 bg-[#fffaf2]/95 backdrop-blur-sm border-t border-amber-200/30 z-40">
+      <div className="bg-[#fffaf2]/95 backdrop-blur-sm border-t border-amber-200/30 mt-auto">
         <div className="max-w-4xl mx-auto p-4">
           {/* Quick Suggestions */}
           {messages.length === 0 && (
