@@ -311,37 +311,46 @@ export function LinkedInGPT() {
             </TabsContent>
           </Tabs>
 
-          {/* Input */}
-          <Card className="border-amber-200 bg-white/90 backdrop-blur-sm shadow-xl rounded-xl">
-            <CardContent className="p-6">
-              <div className="flex gap-4 items-start">
-                <div className="flex-1 relative">
-                  <div className="absolute left-3 top-3 text-amber-600">
-                    <Edit3 className="w-4 h-4" />
+          {/* Fixed Input at Bottom */}
+          <div className="pb-32">
+            {/* Spacer to prevent content from being hidden behind fixed input */}
+          </div>
+        </div>
+        
+        {/* Fixed Input Area */}
+        <div className="fixed bottom-0 left-0 right-0 z-50 p-6 bg-gradient-to-t from-[#fef3c7] via-[#fef3c7] to-transparent">
+          <div className="max-w-5xl mx-auto">
+            <Card className="border-amber-200 bg-white/95 backdrop-blur-sm shadow-xl rounded-xl">
+              <CardContent className="p-6">
+                <div className="flex gap-4 items-start">
+                  <div className="flex-1 relative">
+                    <div className="absolute left-3 top-3 text-amber-600">
+                      <Edit3 className="w-4 h-4" />
+                    </div>
+                    <Textarea
+                      placeholder="✍️ Describe the LinkedIn post you want to create..."
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      className="min-h-[80px] pl-10 border-amber-200 focus:border-amber-400 focus:ring-amber-200 resize-none rounded-lg"
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" && !e.shiftKey) {
+                          e.preventDefault();
+                          handleSend();
+                        }
+                      }}
+                    />
                   </div>
-                  <Textarea
-                    placeholder="✍️ Describe the LinkedIn post you want to create..."
-                    value={input}
-                    onChange={(e) => setInput(e.target.value)}
-                    className="min-h-[80px] pl-10 border-amber-200 focus:border-amber-400 focus:ring-amber-200 resize-none rounded-lg"
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        handleSend();
-                      }
-                    }}
-                  />
+                  <Button 
+                    onClick={handleSend} 
+                    size="lg"
+                    className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 rounded-lg"
+                  >
+                    <Send className="w-5 h-5" />
+                  </Button>
                 </div>
-                <Button 
-                  onClick={handleSend} 
-                  size="lg"
-                  className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 rounded-lg"
-                >
-                  <Send className="w-5 h-5" />
-                </Button>
-              </div>
-            </CardContent>
-          </Card>
+              </CardContent>
+            </Card>
+          </div>
 
           {/* Floating CTA */}
           <Tooltip>
