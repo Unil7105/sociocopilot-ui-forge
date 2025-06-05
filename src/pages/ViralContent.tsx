@@ -162,7 +162,7 @@ export function ViralContent() {
           {/* Header Section */}
           <div className="mb-12">
             <div className="flex items-center justify-between mb-6">
-              <div className="text-center">
+              <div className="text-center w-full">
                 <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 via-blue-500 to-indigo-600 bg-clip-text text-transparent mb-4">
                   Viral Content
                 </h1>
