@@ -112,55 +112,55 @@ export function LinkedInGPT() {
 
         {/* Loading State */}
         {isGenerating && (
-          <div className="mb-16">
+          <div className="mb-16 animate-fade-in">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-6 h-6 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full flex items-center justify-center">
                 <Sparkles className="w-3 h-3 text-white animate-pulse" />
               </div>
-              <span className="text-sm text-gray-600">AI Copilot is writing...</span>
+              <span className="text-sm text-gray-600">ai copilot is writing...</span>
             </div>
-            <div className="flex gap-1">
-              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></div>
-              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" style={{ animationDelay: '0.2s' }}></div>
-              <div className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" style={{ animationDelay: '0.4s' }}></div>
+            <div className="flex gap-1.5 ml-9">
+              <div className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse"></div>
+              <div className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" style={{ animationDelay: '0.3s' }}></div>
+              <div className="w-1.5 h-1.5 bg-amber-400 rounded-full animate-pulse" style={{ animationDelay: '0.6s' }}></div>
             </div>
           </div>
         )}
 
         {/* Generated Posts */}
-        {messages.filter(m => m.type === 'ai').map(message => (
-          <div key={message.id} className="mt-6 mb-4 pl-6 animate-fade-in">
+        {messages.filter(m => m.type === 'ai').map((message, index) => (
+          <div key={message.id} className="mt-6 mb-8 animate-fade-in" style={{ animationDelay: `${index * 0.1}s` }}>
             {/* AI Response Container */}
-            <div className="bg-[#fff4e8]/30 rounded-md p-6 max-w-[640px]">
+            <div className="bg-white rounded-xl p-8 max-w-[680px] shadow-sm border border-gray-100/50">
               {/* AI Identity Header */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-2 text-sm text-gray-500">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-3 text-sm text-gray-500">
                   <span>🟠</span>
-                  <span>AI Copilot</span>
-                  <span className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded-full">
-                    {selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1)} ▼
+                  <span>ai copilot</span>
+                  <span className="text-xs text-amber-700 bg-amber-50 px-2.5 py-1 rounded-full font-medium">
+                    {selectedTone}
                   </span>
                 </div>
                 <TooltipProvider>
-                  <div className="flex gap-2">
+                  <div className="flex gap-1">
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button className="p-1 text-gray-400 hover:text-amber-600 opacity-60 hover:opacity-100 hover:scale-105 transition-all">
+                        <button className="p-2 text-gray-400 hover:text-amber-600 opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-200 rounded-lg hover:bg-amber-50/50">
                           <Copy className="w-4 h-4" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Copy</p>
+                        <p>copy to clipboard</p>
                       </TooltipContent>
                     </Tooltip>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <button className="p-1 text-gray-400 hover:text-amber-600 opacity-60 hover:opacity-100 hover:scale-105 transition-all">
+                        <button className="p-2 text-gray-400 hover:text-amber-600 opacity-60 hover:opacity-100 hover:scale-110 transition-all duration-200 rounded-lg hover:bg-amber-50/50">
                           <RotateCcw className="w-4 h-4" />
                         </button>
                       </TooltipTrigger>
                       <TooltipContent>
-                        <p>Try Again</p>
+                        <p>generate a new version</p>
                       </TooltipContent>
                     </Tooltip>
                   </div>
@@ -168,14 +168,14 @@ export function LinkedInGPT() {
               </div>
               
               {/* Post Content */}
-              <div className="space-y-4">
+              <div className="space-y-5">
                 {/* Title */}
-                <h2 className="font-semibold text-lg text-gray-800 leading-tight">
+                <h2 className="font-medium text-[17px] text-gray-800 leading-relaxed">
                   {message.content.split('\n')[0]}
                 </h2>
                 
                 {/* Body */}
-                <div className="text-gray-600 text-base leading-relaxed space-y-4">
+                <div className="text-gray-600 text-[15px] leading-relaxed space-y-4">
                   {message.content.split('\n').slice(1).map((line, index) => {
                     if (line.trim() === '') return null;
                     if (line.startsWith('→')) {
@@ -206,16 +206,17 @@ export function LinkedInGPT() {
                 </div>
               </div>
               
-              {/* Timestamp */}
-              <div className="mt-4 text-xs text-neutral-400">
-                just now
+              {/* Timestamp and Draft Status */}
+              <div className="flex items-center justify-between mt-6">
+                <div className="text-xs text-neutral-400">just now</div>
+                <div className="text-xs text-green-600 font-medium">draft saved</div>
               </div>
               
               {/* Engagement Footer */}
               {message.engagement && (
                 <div className="mt-4 pt-4 border-t border-gray-100">
                   <p className="text-xs text-gray-500">
-                    Predicted engagement: {message.engagement.likes} likes • {message.engagement.comments} comments • {message.engagement.shares} shares
+                    predicted engagement: {message.engagement.likes} likes • {message.engagement.comments} comments • {message.engagement.shares} shares
                   </p>
                 </div>
               )}
@@ -248,7 +249,7 @@ export function LinkedInGPT() {
                 <button
                   key={index}
                   onClick={() => setInput(prompt)}
-                  className="flex-shrink-0 bg-white/60 hover:bg-white border border-gray-100 hover:border-amber-200 rounded-lg px-4 py-2 text-sm text-gray-700 hover:text-gray-900 transition-all duration-200 hover:shadow-sm whitespace-nowrap"
+                  className="flex-shrink-0 bg-white/70 hover:bg-white border border-gray-150 hover:border-amber-200 rounded-xl px-4 py-2.5 text-sm text-gray-600 hover:text-gray-900 transition-all duration-200 hover:shadow-md hover:underline hover:-translate-y-0.5 whitespace-nowrap font-medium"
                 >
                   {prompt}
                 </button>
@@ -266,21 +267,29 @@ export function LinkedInGPT() {
                   {selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1)}
                 </span>
               </div>
-              <div className="flex gap-1">
-                {toneOptions.map((tone) => (
-                  <button
-                    key={tone.value}
-                    onClick={() => setSelectedTone(tone.value)}
-                    className={`px-2 py-1 text-xs rounded-md transition-all ${
-                      selectedTone === tone.value
-                        ? 'bg-amber-100 text-amber-700'
-                        : 'text-gray-500 hover:bg-gray-100'
-                    }`}
-                  >
-                    {tone.label}
-                  </button>
-                ))}
-              </div>
+              <TooltipProvider>
+                <div className="flex gap-1">
+                  {toneOptions.map((tone) => (
+                    <Tooltip key={tone.value}>
+                      <TooltipTrigger asChild>
+                        <button
+                          onClick={() => setSelectedTone(tone.value)}
+                          className={`px-2.5 py-1 text-xs rounded-lg transition-all duration-200 ${
+                            selectedTone === tone.value
+                              ? 'bg-amber-100 text-amber-700 scale-105 shadow-sm'
+                              : 'text-gray-500 hover:bg-gray-100 hover:scale-105'
+                          }`}
+                        >
+                          {tone.label}
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>{tone.value === 'professional' ? 'confident & clear' : tone.value === 'friendly' ? 'conversational' : 'impactful'}</p>
+                      </TooltipContent>
+                    </Tooltip>
+                  ))}
+                </div>
+              </TooltipProvider>
             </div>
             
             <div className="flex items-end gap-4 p-4">
@@ -299,23 +308,32 @@ export function LinkedInGPT() {
                   disabled={isGenerating}
                 />
               </div>
-              <Button 
-                onClick={handleSend} 
-                disabled={!input.trim() || isGenerating}
-                className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-3 h-12 font-medium rounded-xl transition-all duration-300 hover:scale-105 hover:shadow-lg disabled:hover:scale-100 disabled:hover:shadow-none"
-              >
-                {isGenerating ? (
-                  <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                    <span>Writing...</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center gap-2">
-                    <span>Generate</span>
-                    <Send className="w-4 h-4" />
-                  </div>
-                )}
-              </Button>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button 
+                      onClick={handleSend} 
+                      disabled={!input.trim() || isGenerating}
+                      className="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white px-6 py-3 h-12 font-medium rounded-xl transition-all duration-300 hover:scale-105 hover:translate-x-1 hover:shadow-lg disabled:hover:scale-100 disabled:hover:translate-x-0 disabled:hover:shadow-none"
+                    >
+                      {isGenerating ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                          <span>writing...</span>
+                        </div>
+                      ) : (
+                        <div className="flex items-center gap-2">
+                          <span>generate</span>
+                          <Send className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+                        </div>
+                      )}
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>generate a linkedin-ready post</p>
+                  </TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
             
             {/* Character Count & Hints */}
