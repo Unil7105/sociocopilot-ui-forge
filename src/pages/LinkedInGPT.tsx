@@ -103,7 +103,7 @@ export function LinkedInGPT() {
   ];
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#fffaf2] font-['Inter',sans-serif]">
+    <div className="flex flex-col h-full bg-[#fffaf2] font-['Inter',sans-serif] relative">
       {/* Header */}
       <div className="sticky top-0 bg-[#fffaf2]/95 backdrop-blur-sm border-b border-amber-200/30 z-50 shadow-sm">
         <div className="max-w-4xl mx-auto px-6 py-4">
@@ -277,7 +277,7 @@ export function LinkedInGPT() {
       </div>
 
       {/* Chat Input */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#fffaf2]/95 backdrop-blur-sm border-t border-amber-200/30 z-40">
+      <div className="absolute bottom-0 left-0 right-0 bg-[#fffaf2]/95 backdrop-blur-sm border-t border-amber-200/30 z-40">
         <div className="max-w-4xl mx-auto p-4">
           {/* Quick Suggestions */}
           {messages.length === 0 && (
