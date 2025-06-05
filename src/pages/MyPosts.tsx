@@ -38,12 +38,12 @@ export function MyPosts() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-amber-50">
       {/* Header */}
       <div className="bg-white border-b border-gray-200 px-8 py-6">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-6">
-            <h1 className="text-2xl font-semibold text-gray-900">My Posts</h1>
+            <h1 className="text-2xl font-semibold text-pink-600">My Posts</h1>
             <div className="flex items-center gap-2">
               <Button
                 variant="ghost"

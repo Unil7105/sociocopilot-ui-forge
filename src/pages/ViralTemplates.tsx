@@ -110,12 +110,12 @@ export function ViralTemplates() {
     setSavedTemplates(prev => prev.includes(templateId) ? prev.filter(id => id !== templateId) : [...prev, templateId]);
   };
   return <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/20">
+      <div className="min-h-screen bg-amber-50">
         {/* Enhanced Header with Gradient Background */}
         <div className="bg-white text-foreground pt-16 pb-20 px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-8">
-              <h1 className="text-5xl font-bold mb-4 tracking-tight text-indigo-600">
+              <h1 className="text-5xl font-bold mb-4 tracking-tight text-pink-600">
                 Viral Templates
               </h1>
               <p className="text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">

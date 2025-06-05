@@ -60,15 +60,16 @@ export function LinkedInGPT() {
   };
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
-      {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-3 mb-2">
-          <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
-            <Sparkles className="w-6 h-6 text-white" />
-          </div>
-          <div>
-            <h1 className="text-2xl font-bold text-gray-900">LinkedIn GPT</h1>
+    <div className="min-h-screen bg-amber-50">
+      <div className="p-6 max-w-4xl mx-auto">
+        {/* Header */}
+        <div className="mb-6">
+          <div className="flex items-center gap-3 mb-2">
+            <div className="w-10 h-10 bg-gradient-to-r from-purple-600 to-blue-600 rounded-full flex items-center justify-center">
+              <Sparkles className="w-6 h-6 text-white" />
+            </div>
+            <div>
+              <h1 className="text-2xl font-bold text-pink-600">LinkedIn GPT</h1>
             <p className="text-gray-600">AI-powered LinkedIn content writer</p>
           </div>
         </div>
@@ -184,6 +185,7 @@ export function LinkedInGPT() {
           </div>
         </CardContent>
       </Card>
+      </div>
     </div>
   );
 }
