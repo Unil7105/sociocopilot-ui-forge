@@ -60,18 +60,18 @@ export function Sidebar() {
               {navigationItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
-                    <NavLink
+                     <NavLink
                       to={item.url}
                       className={({ isActive }) =>
-                        `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                        `flex items-center gap-3 px-3 py-2 text-sm transition-colors ${
                           isActive
-                            ? "bg-amber-100 text-amber-700"
-                            : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                            ? "text-amber-700 font-semibold border-l-2 border-amber-600 pl-2"
+                            : "text-gray-600 hover:text-gray-900 font-medium"
                         }`
                       }
                     >
-                      <item.icon className="w-5 h-5" />
-                      <span>{item.title}</span>
+                      <item.icon className="w-4 h-4 stroke-gray-600" />
+                      <span className="text-sm">{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
@@ -87,18 +87,18 @@ export function Sidebar() {
                 {bottomItems.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild>
-                      <NavLink
+                       <NavLink
                         to={item.url}
                         className={({ isActive }) =>
-                          `flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                          `flex items-center gap-3 px-3 py-2 text-sm transition-colors ${
                             isActive
-                              ? "bg-amber-100 text-amber-700"
-                              : "text-gray-600 hover:bg-gray-100 hover:text-gray-900"
+                              ? "text-amber-700 font-semibold border-l-2 border-amber-600 pl-2"
+                              : "text-gray-600 hover:text-gray-900 font-medium"
                           }`
                         }
                       >
-                        <item.icon className="w-5 h-5" />
-                        <span>{item.title}</span>
+                        <item.icon className="w-4 h-4 stroke-gray-600" />
+                        <span className="text-sm">{item.title}</span>
                       </NavLink>
                     </SidebarMenuButton>
                   </SidebarMenuItem>

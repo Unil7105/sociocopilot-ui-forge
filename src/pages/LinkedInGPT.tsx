@@ -98,28 +98,28 @@ export function LinkedInGPT() {
       <div className="max-w-2xl mx-auto px-6 py-12">
         
         {/* Header */}
-        <div className="mb-12">
+        <div className="mb-16">
           <div className="flex items-center gap-3 mb-2">
-            <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
-              <Sparkles className="w-4 h-4 text-white" />
+            <div className="w-6 h-6 bg-gradient-to-r from-amber-500 to-amber-600 rounded-lg flex items-center justify-center">
+              <Sparkles className="w-3 h-3 text-white" />
             </div>
             <h1 className="text-2xl font-semibold text-gray-900">Writer Copilot</h1>
           </div>
-          <p className="text-gray-600">SocioCopilot</p>
+          <p className="text-sm text-neutral-500">SocioCopilot</p>
         </div>
 
         {/* Content Suggestions */}
         <div className="mb-16">
           <p className="text-gray-600 mb-8 leading-relaxed">Here are some content ideas to get started:</p>
           
-          <div className="space-y-4">
+          <div className="space-y-4 animate-fade-in">
             {promptSuggestions.slice(0, 3).map((prompt, index) => (
               <div 
                 key={index}
                 onClick={() => setInput(prompt)}
-                className="flex items-center gap-3 py-3 px-2 -mx-2 rounded-lg hover:bg-white/50 cursor-pointer transition-all duration-200 group"
+                className="flex items-center gap-3 py-3 cursor-pointer transition-all duration-200 group hover:underline"
               >
-                <span className="text-amber-600">✍️</span>
+                <span className="text-sm">✍️</span>
                 <span className="text-gray-700 group-hover:text-gray-900 transition-colors">
                   {prompt}
                 </span>
@@ -131,10 +131,8 @@ export function LinkedInGPT() {
         {/* Loading State */}
         {isGenerating && (
           <div className="mb-16">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-6 h-6 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full flex items-center justify-center">
-                <Sparkles className="w-3 h-3 text-white animate-pulse" />
-              </div>
+            <div className="flex items-center gap-3 mb-2">
+              <span className="text-sm">🟠</span>
               <span className="text-sm text-gray-600">AI Copilot is writing...</span>
             </div>
             <div className="flex gap-1">
@@ -147,23 +145,21 @@ export function LinkedInGPT() {
 
         {/* Generated Posts */}
         {messages.filter(m => m.type === 'ai').map(message => (
-          <div key={message.id} className="mb-16">
+          <div key={message.id} className="mb-16 max-w-[700px]">
             {/* Header */}
-            <div className="flex items-center justify-between mb-6">
+            <div className="flex items-center justify-between mb-4">
               <div className="flex items-center gap-3">
-                <div className="w-6 h-6 bg-gradient-to-r from-amber-500 to-amber-600 rounded-full flex items-center justify-center">
-                  <Sparkles className="w-3 h-3 text-white" />
-                </div>
+                <span className="text-sm">🟠</span>
                 <span className="text-sm text-gray-600">AI Copilot</span>
                 <span className="text-xs text-amber-700 bg-amber-50 px-2 py-1 rounded-full">
                   {selectedTone.charAt(0).toUpperCase() + selectedTone.slice(1)} ▼
                 </span>
               </div>
               <div className="flex gap-2">
-                <button className="p-1 text-gray-400 hover:text-amber-600 transition-colors">
+                <button className="opacity-50 hover:opacity-100 text-gray-400 hover:text-amber-600 transition-all">
                   <Copy className="w-4 h-4" />
                 </button>
-                <button className="p-1 text-gray-400 hover:text-amber-600 transition-colors">
+                <button className="opacity-50 hover:opacity-100 text-gray-400 hover:text-amber-600 transition-all">
                   <RotateCcw className="w-4 h-4" />
                 </button>
               </div>
@@ -177,7 +173,7 @@ export function LinkedInGPT() {
               </h2>
               
               {/* Body */}
-              <div className="text-gray-700 leading-relaxed space-y-4">
+              <div className="text-gray-700 leading-loose space-y-4">
                 {message.content.split('\n').slice(1).map((line, index) => {
                   if (line.trim() === '') return null;
                   if (line.startsWith('→')) {
@@ -232,7 +228,7 @@ export function LinkedInGPT() {
       </div>
 
       {/* Input Bar */}
-      <div className="fixed bottom-0 left-0 right-0 bg-[#fffaf2] border-t border-gray-200 p-6">
+      <div className="fixed bottom-0 left-0 right-0 bg-[#fffaf2] border-t border-gray-200 px-5 py-4">
         <div className="max-w-2xl mx-auto">
           <div className="flex gap-4 items-end">
             <div className="flex-1">
@@ -240,7 +236,7 @@ export function LinkedInGPT() {
                 placeholder="What would you like to post about today?" 
                 value={input} 
                 onChange={(e) => setInput(e.target.value)}
-                className="h-12 border-0 bg-transparent text-base placeholder:text-gray-500 focus:ring-0 focus:border-0 px-0"
+                className="h-12 border-0 bg-transparent text-sm text-neutral-600 placeholder:text-gray-500 focus:ring-0 focus:border-0 px-0"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
                     e.preventDefault();
@@ -253,9 +249,14 @@ export function LinkedInGPT() {
             <Button 
               onClick={handleSend} 
               disabled={!input.trim() || isGenerating}
-              className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 h-12 font-medium"
+              className="bg-amber-500 hover:bg-amber-500 text-white px-6 py-3 h-12 font-medium transition-all group"
             >
-              {isGenerating ? "Generating..." : "Generate →"}
+              {isGenerating ? "Generating..." : (
+                <span className="flex items-center gap-1">
+                  Generate 
+                  <span className="group-hover:translate-x-0.5 transition-transform">→</span>
+                </span>
+              )}
             </Button>
           </div>
         </div>
