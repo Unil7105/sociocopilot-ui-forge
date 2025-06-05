@@ -278,11 +278,11 @@ export function LinkedInGPT() {
 
       {/* Chat Input */}
       <div className="fixed bottom-0 left-0 right-0 bg-[#fffaf2]/95 backdrop-blur-sm border-t border-amber-200/30 z-40">
-        <div className="max-w-4xl mx-auto p-4">
+        <div className="max-w-4xl mx-auto p-4 flex flex-col items-center">
           {/* Quick Suggestions */}
           {messages.length === 0 && (
-            <div className="mb-4">
-              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+            <div className="mb-4 w-full">
+              <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide justify-center">
                 {promptSuggestions.map((prompt, index) => (
                   <button
                     key={index}
@@ -296,9 +296,9 @@ export function LinkedInGPT() {
             </div>
           )}
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-3 w-full max-w-2xl">
             {/* Tone Selector */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center justify-center gap-3">
               <span className="text-xs text-gray-500 font-medium">Tone:</span>
               <div className="flex gap-1">
                 {toneOptions.map((tone) => (
@@ -318,7 +318,7 @@ export function LinkedInGPT() {
             </div>
 
             {/* Input Area */}
-            <div className="relative">
+            <div className="relative w-full">
               <Textarea 
                 placeholder="Ask me to write anything from a productivity tip to a launch story..." 
                 value={input} 
@@ -352,11 +352,8 @@ export function LinkedInGPT() {
             </div>
             
             {/* Footer */}
-            <div className="flex items-center justify-between text-xs text-gray-500">
+            <div className="flex items-center justify-center text-xs text-gray-500">
               <span>Press Enter to send • Shift+Enter for new line</span>
-              <span className={input.length > 400 ? 'text-amber-600 font-medium' : ''}>
-                {input.length}/500
-              </span>
             </div>
           </div>
         </div>
