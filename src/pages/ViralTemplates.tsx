@@ -115,7 +115,7 @@ export function ViralTemplates() {
         <div className="bg-none text-black pt-16 pb-20 px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-8">
-              <h1 className="text-5xl font-bold mb-4 tracking-tight text-indigo-600">
+              <h1 className="text-5xl font-bold mb-4 tracking-tight text-amber-700">
                 Viral Templates
               </h1>
               <p className="text-lg text-amber-800/80 max-w-2xl mx-auto leading-relaxed font-medium">
@@ -157,18 +157,18 @@ export function ViralTemplates() {
 
                 <CardContent className="p-0 h-full flex flex-col">
                   {/* Animated Gradient Border */}
-                  <div className="h-1 bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-500 group-hover:h-2 transition-all duration-300"></div>
+                  <div className="h-1 bg-gradient-to-r from-amber-400 via-orange-500 to-yellow-500 group-hover:h-2 transition-all duration-300"></div>
                   
                   <div className="p-8 flex-1 flex flex-col">
                     {/* Title and Category */}
                     <div className="flex items-start justify-between mb-6">
                       <div className="flex-1 min-w-0">
-                        <CardTitle className="text-2xl mb-3 font-bold text-gray-900 group-hover:text-purple-700 transition-colors leading-tight">
+                        <CardTitle className="text-2xl mb-3 font-bold text-gray-900 group-hover:text-amber-700 transition-colors leading-tight">
                           {template.title}
                         </CardTitle>
                         <p className="text-[15px] text-gray-600 leading-relaxed">{template.description}</p>
                       </div>
-                      <Badge variant="outline" className="text-xs bg-purple-50 text-purple-700 border-purple-200 font-semibold px-3 py-1 ml-4 flex-shrink-0 rounded-full">
+                      <Badge variant="outline" className="text-xs bg-amber-50 text-amber-700 border-amber-200 font-semibold px-3 py-1 ml-4 flex-shrink-0 rounded-full">
                         {template.category}
                       </Badge>
                     </div>
@@ -176,7 +176,7 @@ export function ViralTemplates() {
                     {/* Enhanced Template Preview */}
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <div className="bg-gradient-to-br from-gray-50 via-blue-50/30 to-purple-50/20 p-6 rounded-2xl border border-gray-100 mb-8 flex-1 cursor-pointer hover:shadow-inner transition-all duration-200">
+                        <div className="bg-gradient-to-br from-amber-50/50 via-orange-50/30 to-yellow-50/20 p-6 rounded-2xl border border-amber-100 mb-8 flex-1 cursor-pointer hover:shadow-inner transition-all duration-200">
                           <p className="text-[15px] text-gray-700 leading-relaxed font-medium line-clamp-3">
                             {template.preview}
                           </p>
@@ -191,7 +191,7 @@ export function ViralTemplates() {
                     <div className="flex items-center gap-6 mb-8">
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="flex items-center gap-2 text-gray-600 hover:text-purple-600 transition-colors cursor-pointer group/stat">
+                          <div className="flex items-center gap-2 text-gray-600 hover:text-amber-600 transition-colors cursor-pointer group/stat">
                             <Star className="w-5 h-5 group-hover/stat:scale-110 transition-transform fill-current" />
                             <span className="font-bold text-sm">{(template.uses / 1000).toFixed(1)}K</span>
                           </div>
@@ -203,7 +203,7 @@ export function ViralTemplates() {
 
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <div className="flex items-center gap-2 text-gray-600 hover:text-pink-600 transition-colors cursor-pointer group/stat">
+                          <div className="flex items-center gap-2 text-gray-600 hover:text-orange-600 transition-colors cursor-pointer group/stat">
                             <Heart className="w-5 h-5 group-hover/stat:scale-110 transition-transform" />
                             <span className="font-bold text-sm">{template.saves}</span>
                           </div>
