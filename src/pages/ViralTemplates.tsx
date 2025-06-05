@@ -112,7 +112,7 @@ export function ViralTemplates() {
   return <TooltipProvider>
       <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-purple-50/20">
         {/* Enhanced Header with Gradient Background */}
-        <div className="bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500 pt-16 pb-20 px-8">
+        <div className="bg-white text-black pt-16 pb-20 px-8">
           <div className="max-w-7xl mx-auto">
             <div className="text-center mb-8">
               <h1 className="text-5xl font-bold text-white mb-4 tracking-tight">
