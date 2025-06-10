@@ -54,46 +54,46 @@ export default function GenerateContent() {
   };
 
   return (
-    <div className="min-h-screen font-[Inter] bg-[#FDFCF9] flex items-center justify-center p-6">
-      <div className="w-full max-w-[760px] bg-white rounded-2xl shadow-sm p-8 space-y-6">
+    <div className="min-h-screen bg-background flex items-center justify-center p-6">
+      <div className="w-full max-w-[760px] bg-card rounded-2xl shadow-sm border border-border p-8 space-y-6">
         {/* Header */}
-        <div className="text-left">
-          <h2 className="text-[28px] font-semibold text-[#3D3A31] leading-tight">✨ Generate AI Content</h2>
-          <p className="text-[14px] text-[#6E675F] mt-1">Plan engaging posts in minutes</p>
+        <div className="text-left space-y-2">
+          <h2 className="text-[28px] font-semibold text-foreground leading-tight">✨ Generate AI Content</h2>
+          <p className="text-[14px] text-muted-foreground">Plan engaging posts in minutes</p>
         </div>
 
         {/* Date Range Section */}
-        <div className="space-y-3">
-          <label className="text-[14px] font-medium text-[#6E675F]">Date Range</label>
+        <div className="space-y-4">
+          <label className="text-[14px] font-medium text-muted-foreground">Date Range</label>
           <div className="flex items-center gap-4 flex-wrap">
             <div className="flex items-center gap-2">
-              <CalendarDays className="w-4 h-4 text-[#6E675F]" />
+              <CalendarDays className="w-4 h-4 text-muted-foreground" />
               <input
                 type="date"
                 value={fromDate}
                 onChange={(e) => setFromDate(e.target.value)}
-                className="border-none border-b-2 border-[#EBDDC8] bg-transparent px-0 py-2 text-[16px] text-[#3D3A31] focus:outline-none focus:border-[#FFB46A] transition-colors"
+                className="border-none border-b-2 border-border bg-transparent px-0 py-2 text-[16px] text-foreground focus:outline-none focus:border-primary transition-all duration-200"
               />
             </div>
-            <span className="text-[14px] text-[#6E675F]">to</span>
+            <span className="text-[14px] text-muted-foreground">to</span>
             <div className="flex items-center gap-2">
               <input
                 type="date"
                 value={toDate}
                 onChange={(e) => setToDate(e.target.value)}
-                className="border-none border-b-2 border-[#EBDDC8] bg-transparent px-0 py-2 text-[16px] text-[#3D3A31] focus:outline-none focus:border-[#FFB46A] transition-colors"
+                className="border-none border-b-2 border-border bg-transparent px-0 py-2 text-[16px] text-foreground focus:outline-none focus:border-primary transition-all duration-200"
               />
             </div>
             <div className="flex gap-2 ml-auto">
               <button
                 onClick={() => setQuickDate(7)}
-                className="px-3 py-1 text-[14px] text-[#6E675F] border border-[#EBDDC8] rounded-lg hover:bg-[#FFF4DD] transition-colors"
+                className="px-3 py-1.5 text-[14px] text-muted-foreground border border-border rounded-lg hover:bg-accent hover:text-accent-foreground transition-all duration-200"
               >
                 7 days
               </button>
               <button
                 onClick={() => setQuickDate(30)}
-                className="px-3 py-1 text-[14px] text-[#6E675F] border border-[#EBDDC8] rounded-lg hover:bg-[#FFF4DD] transition-colors"
+                className="px-3 py-1.5 text-[14px] text-muted-foreground border border-border rounded-lg hover:bg-accent hover:text-accent-foreground transition-all duration-200"
               >
                 30 days
               </button>
@@ -102,13 +102,13 @@ export default function GenerateContent() {
         </div>
 
         {/* Strategy Pills */}
-        <div className="space-y-3">
-          <label className="text-[14px] font-medium text-[#6E675F]">Content Strategy</label>
-          <div className="flex gap-3">
-            <label className={`cursor-pointer rounded-lg px-4 py-3 border-2 transition-all ${
+        <div className="space-y-4">
+          <label className="text-[14px] font-medium text-muted-foreground">Content Strategy</label>
+          <div className="flex gap-3 flex-wrap">
+            <label className={`cursor-pointer rounded-lg px-6 py-3 border-2 transition-all duration-200 ${
               type === 'trend' 
-                ? 'bg-[#FAEBCB] border-[#FAEBCB] text-[#3D3A31]' 
-                : 'border-[#EBDDC8] text-[#6E675F] hover:bg-[#FFF4DD]'
+                ? 'bg-secondary border-secondary text-foreground shadow-sm' 
+                : 'border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground'
             }`}>
               <input
                 type="radio"
@@ -120,10 +120,10 @@ export default function GenerateContent() {
               />
               <span className="text-[16px] font-medium">Trending Topics</span>
             </label>
-            <label className={`cursor-pointer rounded-lg px-4 py-3 border-2 transition-all ${
+            <label className={`cursor-pointer rounded-lg px-6 py-3 border-2 transition-all duration-200 ${
               type === 'niche' 
-                ? 'bg-[#FAEBCB] border-[#FAEBCB] text-[#3D3A31]' 
-                : 'border-[#EBDDC8] text-[#6E675F] hover:bg-[#FFF4DD]'
+                ? 'bg-secondary border-secondary text-foreground shadow-sm' 
+                : 'border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground'
             }`}>
               <input
                 type="radio"
@@ -139,19 +139,19 @@ export default function GenerateContent() {
         </div>
 
         {/* Prompt Textarea */}
-        <div className="space-y-3">
-          <label className="text-[14px] font-medium text-[#6E675F]">Content Prompt</label>
+        <div className="space-y-4">
+          <label className="text-[14px] font-medium text-muted-foreground">Content Prompt</label>
           <div className="relative">
             <textarea
               value={promptText}
               onChange={(e) => setPromptText(e.target.value)}
               rows={5}
               placeholder="Eg: Focus on AI trends, viral TikTok challenges, or breaking tech news..."
-              className="w-full h-[120px] border border-[#EBDDC8] rounded-lg px-4 py-3 text-[16px] text-[#3D3A31] placeholder-[#6E675F] focus:outline-none focus:border-[#FFB46A] focus:ring-2 focus:ring-[#FFB46A]/20 resize-none shadow-inner bg-white transition-all"
+              className="w-full h-[120px] border border-border rounded-lg px-4 py-3 text-[16px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-ring/20 resize-none bg-card transition-all duration-200"
               style={{ lineHeight: '1.45' }}
             />
             {type === 'trend' && (
-              <div className="absolute top-2 right-2 bg-[#FFB46A]/20 text-[#FFB46A] px-2 py-1 rounded text-[12px] font-medium flex items-center gap-1">
+              <div className="absolute top-3 right-3 bg-secondary text-primary px-2 py-1 rounded text-[12px] font-medium flex items-center gap-1 shadow-sm">
                 <Flame className="w-3 h-3" />
                 Trending
               </div>
@@ -163,7 +163,7 @@ export default function GenerateContent() {
         <button
           onClick={generateCards}
           disabled={isLoading}
-          className="w-full h-[48px] bg-[#412C1A] hover:bg-[#2D1F12] text-white rounded-full text-[16px] font-medium transition-all focus:outline-none focus:ring-2 focus:ring-[#FFB46A] focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full h-[52px] bg-primary hover:bg-primary/90 text-primary-foreground rounded-full text-[16px] font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm"
         >
           {isLoading ? (
             <>
@@ -177,26 +177,28 @@ export default function GenerateContent() {
 
         {/* Empty State */}
         {cards.length === 0 && !isLoading && (
-          <div className="text-center py-12">
-            <Sparkles className="w-12 h-12 text-[#EBDDC8] mx-auto mb-4" />
-            <p className="text-[#6E675F] text-[16px]">Ready to create amazing content?</p>
-            <p className="text-[#6E675F] text-[14px] mt-1">Fill out the form above to get started</p>
+          <div className="text-center py-16 space-y-3">
+            <Sparkles className="w-16 h-16 text-muted mx-auto mb-4 opacity-50" />
+            <div className="space-y-1">
+              <p className="text-foreground text-[16px] font-medium">Ready to create amazing content?</p>
+              <p className="text-muted-foreground text-[14px]">Fill out the form above to get started</p>
+            </div>
           </div>
         )}
       </div>
 
       {/* Generated Cards */}
       {cards.length > 0 && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-6 z-50" onClick={() => setCards([])}>
-          <div className="bg-white rounded-2xl shadow-lg max-w-4xl w-full max-h-[80vh] overflow-auto p-8" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-6 z-50 animate-fade-in" onClick={() => setCards([])}>
+          <div className="bg-card rounded-2xl shadow-lg border border-border max-w-4xl w-full max-h-[80vh] overflow-auto p-8 animate-scale-in" onClick={e => e.stopPropagation()}>
             <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-2">
-                <LayoutGrid className="w-5 h-5 text-[#6E675F]" />
-                <h2 className="text-[20px] font-semibold text-[#3D3A31]">Generated Content ({cards.length} Days)</h2>
+              <div className="flex items-center gap-3">
+                <LayoutGrid className="w-5 h-5 text-muted-foreground" />
+                <h2 className="text-[20px] font-semibold text-foreground">Generated Content ({cards.length} Days)</h2>
               </div>
               <button
                 onClick={() => setCards([])}
-                className="text-[#6E675F] hover:text-[#3D3A31] text-[24px]"
+                className="text-muted-foreground hover:text-foreground text-[24px] p-1 rounded-full hover:bg-accent transition-all duration-200"
               >
                 ×
               </button>
@@ -205,11 +207,11 @@ export default function GenerateContent() {
               {cards.map((card, index) => (
                 <div
                   key={index}
-                  className="bg-[#FDFCF9] border border-[#EBDDC8] rounded-xl p-4 hover:shadow-md transition-all"
+                  className="bg-background border border-border rounded-xl p-5 hover:shadow-md hover:scale-[1.02] transition-all duration-200 space-y-3"
                 >
-                  <p className="text-[12px] text-[#6E675F] mb-2">{card.date}</p>
-                  <h3 className="font-medium text-[14px] mb-2 text-[#3D3A31] leading-tight">{card.content}</h3>
-                  <p className="text-[12px] text-[#6E675F]">This is a preview. Replace with actual AI-generated insights.</p>
+                  <p className="text-[12px] text-muted-foreground font-medium">{card.date}</p>
+                  <h3 className="font-medium text-[14px] text-foreground leading-tight">{card.content}</h3>
+                  <p className="text-[12px] text-muted-foreground">This is a preview. Replace with actual AI-generated insights.</p>
                 </div>
               ))}
             </div>
