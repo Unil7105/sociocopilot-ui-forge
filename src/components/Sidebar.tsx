@@ -8,7 +8,8 @@ import {
   Settings,
   CreditCard,
   HelpCircle,
-  Sparkles
+  Sparkles,
+  LayoutGrid
 } from "lucide-react";
 import {
   Sidebar as SidebarComponent,
@@ -25,6 +26,7 @@ const navigationItems = [
   { title: "Writer Copilot", url: "/linkedin-gpt", icon: Bot },
   { title: "Viral Content", url: "/viral-content", icon: Zap },
   { title: "Viral Templates", url: "/viral-templates", icon: FileText },
+  { title: "Generate Content", url: "/generate-content", icon: LayoutGrid },
   { title: "My Posts", url: "/my-posts", icon: Calendar },
   { title: "Analytics", url: "/analytics", icon: BarChart3 },
 ];

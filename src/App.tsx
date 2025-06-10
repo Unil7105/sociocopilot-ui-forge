@@ -8,6 +8,7 @@ import { ViralContent } from "./pages/ViralContent";
 import { ViralTemplates } from "./pages/ViralTemplates";
 import { MyPosts } from "./pages/MyPosts";
 import { LinkedInGPT } from "./pages/LinkedInGPT";
+import GenerateContent from "./pages/GenerateContent";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -24,6 +25,7 @@ const App = () => (
             <Route path="/linkedin-gpt" element={<LinkedInGPT />} />
             <Route path="/viral-content" element={<ViralContent />} />
             <Route path="/viral-templates" element={<ViralTemplates />} />
+            <Route path="/generate-content" element={<GenerateContent />} />
             <Route path="/my-posts" element={<MyPosts />} />
             <Route path="/analytics" element={<div className="p-6"><h1 className="text-2xl font-bold">Analytics</h1><p className="text-gray-600">Coming soon...</p></div>} />
             <Route path="/settings" element={<div className="p-6"><h1 className="text-2xl font-bold">Settings</h1><p className="text-gray-600">Coming soon...</p></div>} />
