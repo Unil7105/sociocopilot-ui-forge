@@ -1,28 +1,19 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import { Sparkles, CalendarDays, LayoutGrid, Flame, Loader2 } from 'lucide-react';
+import { Sparkles, Loader2, Wand2 } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 export default function GenerateContent() {
-  const [type, setType] = useState('trend');
-  const [fromDate, setFromDate] = useState('');
-  const [toDate, setToDate] = useState('');
   const [promptText, setPromptText] = useState('');
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const { toast } = useToast();
 
-  const setQuickDate = (days: number) => {
-    const today = dayjs();
-    setFromDate(today.format('YYYY-MM-DD'));
-    setToDate(today.add(days, 'day').format('YYYY-MM-DD'));
-  };
-
   const generateCards = async () => {
-    if (!fromDate || !toDate || !promptText.trim()) {
+    if (!promptText.trim()) {
       toast({
-        title: "Missing information",
-        description: "Please complete all fields before generating content.",
+        title: "Enter your content idea",
+        description: "Tell us what kind of content you'd like to create",
         variant: "destructive",
       });
       return;
@@ -30,22 +21,22 @@ export default function GenerateContent() {
 
     setIsLoading(true);
     toast({
-      title: "We're cooking up ideas…",
-      description: "Your content is being generated",
+      title: "Creating your content...",
+      description: "This will take just a moment",
     });
 
     // Simulate loading
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    const start = dayjs(fromDate);
-    const end = dayjs(toDate);
+    // Generate for next 7 days with smart defaults
+    const today = dayjs();
     const days = [];
 
-    for (let d = start; d.isBefore(end) || d.isSame(end); d = d.add(1, 'day')) {
+    for (let i = 0; i < 7; i++) {
+      const date = today.add(i, 'day');
       days.push({
-        date: d.format('YYYY-MM-DD'),
-        type,
-        content: `🪄 AI content for ${d.format('ddd, MMM D')} — Focus: ${type === 'trend' ? 'Trending topics' : 'Niche strategy'} — Prompt: ${promptText}`
+        date: date.format('YYYY-MM-DD'),
+        content: `💡 ${date.format('ddd, MMM D')}: ${promptText} - AI-generated engaging post idea with trending hashtags and optimal posting time.`
       });
     }
 
@@ -55,163 +46,101 @@ export default function GenerateContent() {
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-6">
-      <div className="w-full max-w-[760px] bg-card rounded-2xl shadow-sm border border-border p-8 space-y-6">
+      <div className="w-full max-w-[600px] space-y-8">
         {/* Header */}
-        <div className="text-left space-y-2">
-          <h2 className="text-[28px] font-semibold text-foreground leading-tight">✨ Generate AI Content</h2>
-          <p className="text-[14px] text-muted-foreground">Plan engaging posts in minutes</p>
-        </div>
-
-        {/* Date Range Section */}
-        <div className="space-y-4">
-          <label className="text-[14px] font-medium text-muted-foreground">Date Range</label>
-          <div className="flex items-center gap-4 flex-wrap">
-            <div className="flex items-center gap-2">
-              <CalendarDays className="w-4 h-4 text-muted-foreground" />
-              <input
-                type="date"
-                value={fromDate}
-                onChange={(e) => setFromDate(e.target.value)}
-                className="border-none border-b-2 border-border bg-transparent px-0 py-2 text-[16px] text-foreground focus:outline-none focus:border-primary transition-all duration-200"
-              />
-            </div>
-            <span className="text-[14px] text-muted-foreground">to</span>
-            <div className="flex items-center gap-2">
-              <input
-                type="date"
-                value={toDate}
-                onChange={(e) => setToDate(e.target.value)}
-                className="border-none border-b-2 border-border bg-transparent px-0 py-2 text-[16px] text-foreground focus:outline-none focus:border-primary transition-all duration-200"
-              />
-            </div>
-            <div className="flex gap-2 ml-auto">
-              <button
-                onClick={() => setQuickDate(7)}
-                className="px-3 py-1.5 text-[14px] text-muted-foreground border border-border rounded-lg hover:bg-accent hover:text-accent-foreground transition-all duration-200"
-              >
-                7 days
-              </button>
-              <button
-                onClick={() => setQuickDate(30)}
-                className="px-3 py-1.5 text-[14px] text-muted-foreground border border-border rounded-lg hover:bg-accent hover:text-accent-foreground transition-all duration-200"
-              >
-                30 days
-              </button>
-            </div>
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 bg-gradient-to-br from-primary to-primary/70 rounded-2xl flex items-center justify-center mx-auto">
+            <Wand2 className="w-8 h-8 text-primary-foreground" />
+          </div>
+          <div className="space-y-2">
+            <h1 className="text-3xl font-bold text-foreground">Generate Content</h1>
+            <p className="text-muted-foreground text-lg">What would you like to create content about?</p>
           </div>
         </div>
 
-        {/* Strategy Pills */}
-        <div className="space-y-4">
-          <label className="text-[14px] font-medium text-muted-foreground">Content Strategy</label>
-          <div className="flex gap-3 flex-wrap">
-            <label className={`cursor-pointer rounded-lg px-6 py-3 border-2 transition-all duration-200 ${
-              type === 'trend' 
-                ? 'bg-secondary border-secondary text-foreground shadow-sm' 
-                : 'border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-            }`}>
-              <input
-                type="radio"
-                name="type"
-                value="trend"
-                checked={type === 'trend'}
-                onChange={() => setType('trend')}
-                className="sr-only"
-              />
-              <span className="text-[16px] font-medium">Trending Topics</span>
-            </label>
-            <label className={`cursor-pointer rounded-lg px-6 py-3 border-2 transition-all duration-200 ${
-              type === 'niche' 
-                ? 'bg-secondary border-secondary text-foreground shadow-sm' 
-                : 'border-border text-muted-foreground hover:bg-accent hover:text-accent-foreground'
-            }`}>
-              <input
-                type="radio"
-                name="type"
-                value="niche"
-                checked={type === 'niche'}
-                onChange={() => setType('niche')}
-                className="sr-only"
-              />
-              <span className="text-[16px] font-medium">Niche Strategy</span>
-            </label>
-          </div>
-        </div>
-
-        {/* Prompt Textarea */}
-        <div className="space-y-4">
-          <label className="text-[14px] font-medium text-muted-foreground">Content Prompt</label>
-          <div className="relative">
+        {/* Main Content Card */}
+        <div className="bg-card rounded-3xl shadow-sm border border-border p-8 space-y-6">
+          {/* Content Input */}
+          <div className="space-y-4">
             <textarea
               value={promptText}
               onChange={(e) => setPromptText(e.target.value)}
-              rows={5}
-              placeholder="Eg: Focus on AI trends, viral TikTok challenges, or breaking tech news..."
-              className="w-full h-[120px] border border-border rounded-lg px-4 py-3 text-[16px] text-foreground placeholder:text-muted-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-ring/20 resize-none bg-card transition-all duration-200"
-              style={{ lineHeight: '1.45' }}
+              rows={4}
+              placeholder="e.g. AI trends in healthcare, sustainable living tips, productivity hacks..."
+              className="w-full border-2 border-border rounded-2xl px-6 py-4 text-lg text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-ring/10 resize-none bg-background/50 transition-all duration-200"
+              style={{ lineHeight: '1.5' }}
             />
-            {type === 'trend' && (
-              <div className="absolute top-3 right-3 bg-secondary text-primary px-2 py-1 rounded text-[12px] font-medium flex items-center gap-1 shadow-sm">
-                <Flame className="w-3 h-3" />
-                Trending
-              </div>
-            )}
+            <p className="text-sm text-muted-foreground text-center">
+              We'll create 7 days of content ideas for you
+            </p>
           </div>
-        </div>
 
-        {/* Generate Button */}
-        <button
-          onClick={generateCards}
-          disabled={isLoading}
-          className="w-full h-[52px] bg-primary hover:bg-primary/90 text-primary-foreground rounded-full text-[16px] font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 shadow-sm"
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="w-4 h-4 animate-spin" />
-              Generating...
-            </>
-          ) : (
-            '✨ Generate Content'
-          )}
-        </button>
+          {/* Generate Button */}
+          <button
+            onClick={generateCards}
+            disabled={isLoading || !promptText.trim()}
+            className="w-full h-14 bg-primary hover:bg-primary/90 hover:shadow-lg hover:scale-[1.02] text-primary-foreground rounded-2xl text-lg font-semibold transition-all duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-ring/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none flex items-center justify-center gap-3 shadow-md"
+          >
+            {isLoading ? (
+              <>
+                <Loader2 className="w-5 h-5 animate-spin" />
+                Creating your content...
+              </>
+            ) : (
+              <>
+                <Sparkles className="w-5 h-5" />
+                Generate Content
+              </>
+            )}
+          </button>
+        </div>
 
         {/* Empty State */}
         {cards.length === 0 && !isLoading && (
-          <div className="text-center py-16 space-y-3">
-            <Sparkles className="w-16 h-16 text-muted mx-auto mb-4 opacity-50" />
+          <div className="text-center py-8 space-y-4">
+            <div className="w-12 h-12 bg-muted rounded-full flex items-center justify-center mx-auto">
+              <Sparkles className="w-6 h-6 text-muted-foreground/60" />
+            </div>
             <div className="space-y-1">
-              <p className="text-foreground text-[16px] font-medium">Ready to create amazing content?</p>
-              <p className="text-muted-foreground text-[14px]">Fill out the form above to get started</p>
+              <p className="text-foreground font-medium">Ready when you are</p>
+              <p className="text-muted-foreground text-sm">Enter your topic above to get started</p>
             </div>
           </div>
         )}
       </div>
 
-      {/* Generated Cards */}
+      {/* Generated Cards Modal */}
       {cards.length > 0 && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center p-6 z-50 animate-fade-in" onClick={() => setCards([])}>
-          <div className="bg-card rounded-2xl shadow-lg border border-border max-w-4xl w-full max-h-[80vh] overflow-auto p-8 animate-scale-in" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between mb-6">
-              <div className="flex items-center gap-3">
-                <LayoutGrid className="w-5 h-5 text-muted-foreground" />
-                <h2 className="text-[20px] font-semibold text-foreground">Generated Content ({cards.length} Days)</h2>
+        <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center p-6 z-50" onClick={() => setCards([])}>
+          <div className="bg-card rounded-3xl shadow-2xl border border-border max-w-4xl w-full max-h-[85vh] overflow-auto p-8" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between mb-8">
+              <div className="space-y-1">
+                <h2 className="text-2xl font-bold text-foreground">Your Content Ideas</h2>
+                <p className="text-muted-foreground">7 days of engaging content ready to go</p>
               </div>
               <button
                 onClick={() => setCards([])}
-                className="text-muted-foreground hover:text-foreground text-[24px] p-1 rounded-full hover:bg-accent transition-all duration-200"
+                className="w-10 h-10 text-muted-foreground hover:text-foreground hover:bg-muted rounded-full flex items-center justify-center transition-all duration-200"
               >
                 ×
               </button>
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            
+            <div className="space-y-4">
               {cards.map((card, index) => (
                 <div
                   key={index}
-                  className="bg-background border border-border rounded-xl p-5 hover:shadow-md hover:scale-[1.02] transition-all duration-200 space-y-3"
+                  className="bg-background/80 border border-border/60 rounded-2xl p-6 hover:shadow-md hover:border-border transition-all duration-200 space-y-3"
                 >
-                  <p className="text-[12px] text-muted-foreground font-medium">{card.date}</p>
-                  <h3 className="font-medium text-[14px] text-foreground leading-tight">{card.content}</h3>
-                  <p className="text-[12px] text-muted-foreground">This is a preview. Replace with actual AI-generated insights.</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-primary/10 rounded-lg flex items-center justify-center">
+                      <span className="text-primary font-semibold text-sm">{index + 1}</span>
+                    </div>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      {dayjs(card.date).format('dddd, MMMM D')}
+                    </p>
+                  </div>
+                  <p className="text-foreground leading-relaxed">{card.content}</p>
                 </div>
               ))}
             </div>
