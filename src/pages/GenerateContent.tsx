@@ -1,19 +1,30 @@
 import React, { useState } from 'react';
 import dayjs from 'dayjs';
-import { Sparkles, Loader2, Wand2 } from 'lucide-react';
+import { Sparkles, Loader2, Wand2, CalendarDays } from 'lucide-react';
 import { useToast } from "@/hooks/use-toast";
 
 export default function GenerateContent() {
   const [promptText, setPromptText] = useState('');
   const [cards, setCards] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [fromDate, setFromDate] = useState(dayjs().format('YYYY-MM-DD'));
+  const [toDate, setToDate] = useState(dayjs().add(6, 'day').format('YYYY-MM-DD'));
   const { toast } = useToast();
 
   const generateCards = async () => {
-    if (!promptText.trim()) {
+    if (!promptText.trim() || !fromDate || !toDate) {
       toast({
-        title: "Enter your content idea",
-        description: "Tell us what kind of content you'd like to create",
+        title: "Complete all fields",
+        description: "Please enter your content idea and select both dates",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    if (dayjs(toDate).isBefore(dayjs(fromDate))) {
+      toast({
+        title: "Invalid date range",
+        description: "End date must be after start date",
         variant: "destructive",
       });
       return;
@@ -28,16 +39,18 @@ export default function GenerateContent() {
     // Simulate loading
     await new Promise(resolve => setTimeout(resolve, 2000));
 
-    // Generate for next 7 days with smart defaults
-    const today = dayjs();
+    // Generate content for selected date range
+    const startDate = dayjs(fromDate);
+    const endDate = dayjs(toDate);
     const days = [];
-
-    for (let i = 0; i < 7; i++) {
-      const date = today.add(i, 'day');
+    
+    let currentDate = startDate;
+    while (currentDate.valueOf() <= endDate.valueOf()) {
       days.push({
-        date: date.format('YYYY-MM-DD'),
-        content: `💡 ${date.format('ddd, MMM D')}: ${promptText} - AI-generated engaging post idea with trending hashtags and optimal posting time.`
+        date: currentDate.format('YYYY-MM-DD'),
+        content: `💡 ${currentDate.format('ddd, MMM D')}: ${promptText} - AI-generated engaging post idea with trending hashtags and optimal posting time.`
       });
+      currentDate = currentDate.add(1, 'day');
     }
 
     setCards(days);
@@ -70,15 +83,37 @@ export default function GenerateContent() {
               className="w-full border-2 border-border rounded-2xl px-6 py-4 text-lg text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:border-primary focus:ring-4 focus:ring-ring/10 resize-none bg-background/50 transition-all duration-200"
               style={{ lineHeight: '1.5' }}
             />
-            <p className="text-sm text-muted-foreground text-center">
-              We'll create 7 days of content ideas for you
-            </p>
+          </div>
+
+          {/* Date Range */}
+          <div className="space-y-3">
+            <label className="text-sm font-medium text-muted-foreground">Date Range</label>
+            <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 flex-1">
+                <CalendarDays className="w-4 h-4 text-muted-foreground" />
+                <input
+                  type="date"
+                  value={fromDate}
+                  onChange={(e) => setFromDate(e.target.value)}
+                  className="flex-1 border-2 border-border rounded-lg px-3 py-2 text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-ring/20 bg-background/50 transition-all duration-200"
+                />
+              </div>
+              <span className="text-muted-foreground">to</span>
+              <div className="flex-1">
+                <input
+                  type="date"
+                  value={toDate}
+                  onChange={(e) => setToDate(e.target.value)}
+                  className="w-full border-2 border-border rounded-lg px-3 py-2 text-foreground focus:outline-none focus:border-primary focus:ring-2 focus:ring-ring/20 bg-background/50 transition-all duration-200"
+                />
+              </div>
+            </div>
           </div>
 
           {/* Generate Button */}
           <button
             onClick={generateCards}
-            disabled={isLoading || !promptText.trim()}
+            disabled={isLoading || !promptText.trim() || !fromDate || !toDate}
             className="w-full h-14 bg-primary hover:bg-primary/90 hover:shadow-lg hover:scale-[1.02] text-primary-foreground rounded-2xl text-lg font-semibold transition-all duration-200 ease-in-out focus:outline-none focus:ring-4 focus:ring-ring/20 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none flex items-center justify-center gap-3 shadow-md"
           >
             {isLoading ? (
@@ -116,7 +151,7 @@ export default function GenerateContent() {
             <div className="flex items-center justify-between mb-8">
               <div className="space-y-1">
                 <h2 className="text-2xl font-bold text-foreground">Your Content Ideas</h2>
-                <p className="text-muted-foreground">7 days of engaging content ready to go</p>
+                <p className="text-muted-foreground">{cards.length} {cards.length === 1 ? 'day' : 'days'} of engaging content ready to go</p>
               </div>
               <button
                 onClick={() => setCards([])}
