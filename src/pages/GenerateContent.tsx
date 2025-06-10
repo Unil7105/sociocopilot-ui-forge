@@ -40,34 +40,6 @@ export default function GenerateContent() {
 
         {/* Input Section */}
         <div className="bg-card rounded-2xl p-8 shadow-md border space-y-6">
-          {/* Content Type */}
-          <div className="flex items-center gap-6">
-            <Radio className="w-5 h-5 text-muted-foreground" />
-            <label className="font-semibold text-sm text-muted-foreground">Content Type:</label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="type"
-                value="trend"
-                checked={type === 'trend'}
-                onChange={() => setType('trend')}
-                className="accent-primary"
-              />
-              <span className="text-sm">Trend</span>
-            </label>
-            <label className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="type"
-                value="niche"
-                checked={type === 'niche'}
-                onChange={() => setType('niche')}
-                className="accent-primary"
-              />
-              <span className="text-sm">Different Niche</span>
-            </label>
-          </div>
-
           {/* Date Range */}
           <div className="flex gap-6 items-center">
             <CalendarDays className="w-5 h-5 text-muted-foreground" />
@@ -87,19 +59,73 @@ export default function GenerateContent() {
             />
           </div>
 
-          {/* Prompt Text Area */}
-          <div>
-            <div className="flex items-center gap-2 mb-2">
-              <Type className="w-5 h-5 text-muted-foreground" />
-              <label className="font-semibold text-sm text-muted-foreground">Add a prompt or idea to guide content generation:</label>
+          {/* Enhanced Prompt Section with Content Type */}
+          <div className="bg-gradient-to-br from-primary/5 to-secondary/5 rounded-xl p-6 border border-primary/20">
+            <div className="flex items-center gap-2 mb-4">
+              <Type className="w-5 h-5 text-primary" />
+              <label className="font-semibold text-base text-foreground">Content Strategy & Prompt</label>
             </div>
-            <textarea
-              value={promptText}
-              onChange={(e) => setPromptText(e.target.value)}
-              rows={4}
-              placeholder="Eg: Focus on tech trends in AI or Social Media hooks for Gen Z..."
-              className="w-full border border-input rounded-md px-4 py-3 text-sm shadow-sm focus:outline-none focus:ring-2 focus:ring-ring resize-none bg-background"
-            />
+            
+            {/* Content Type Selection */}
+            <div className="mb-4">
+              <p className="text-sm text-muted-foreground mb-3">Choose your content focus:</p>
+              <div className="flex gap-4">
+                <label className={`flex items-center gap-3 bg-card rounded-lg px-4 py-3 border-2 transition-all cursor-pointer hover:bg-primary/5 hover:border-primary/50 ${
+                  type === 'trend' ? 'border-primary bg-primary/10' : 'border-border'
+                }`}>
+                  <input
+                    type="radio"
+                    name="type"
+                    value="trend"
+                    checked={type === 'trend'}
+                    onChange={() => setType('trend')}
+                    className="accent-primary"
+                  />
+                  <div>
+                    <span className="font-medium text-sm text-foreground">Trending Topics</span>
+                    <p className="text-xs text-muted-foreground">Focus on viral, current trends</p>
+                  </div>
+                </label>
+                <label className={`flex items-center gap-3 bg-card rounded-lg px-4 py-3 border-2 transition-all cursor-pointer hover:bg-secondary/5 hover:border-secondary/50 ${
+                  type === 'niche' ? 'border-secondary bg-secondary/10' : 'border-border'
+                }`}>
+                  <input
+                    type="radio"
+                    name="type"
+                    value="niche"
+                    checked={type === 'niche'}
+                    onChange={() => setType('niche')}
+                    className="accent-secondary"
+                  />
+                  <div>
+                    <span className="font-medium text-sm text-foreground">Niche Strategy</span>
+                    <p className="text-xs text-muted-foreground">Target specific audience interests</p>
+                  </div>
+                </label>
+              </div>
+            </div>
+
+            {/* Textarea with dynamic styling */}
+            <div className="relative">
+              <textarea
+                value={promptText}
+                onChange={(e) => setPromptText(e.target.value)}
+                rows={4}
+                placeholder={`Eg: ${type === 'trend' ? 'Focus on AI trends, viral TikTok challenges, or breaking tech news...' : 'Deep dive into productivity hacks for remote workers, sustainable living tips, or niche hobby communities...'}`}
+                className={`w-full border-2 rounded-lg px-4 py-3 text-sm shadow-sm focus:outline-none focus:ring-2 resize-none transition-all bg-background ${
+                  type === 'trend' 
+                    ? 'border-primary/30 focus:ring-primary/20 focus:border-primary' 
+                    : 'border-secondary/30 focus:ring-secondary/20 focus:border-secondary'
+                }`}
+              />
+              <div className={`absolute top-2 right-2 px-2 py-1 rounded text-xs font-medium ${
+                type === 'trend' 
+                  ? 'bg-primary/10 text-primary' 
+                  : 'bg-secondary/10 text-secondary'
+              }`}>
+                {type === 'trend' ? '🔥 Trending' : '🎯 Niche'}
+              </div>
+            </div>
           </div>
 
           {/* Generate Button */}
